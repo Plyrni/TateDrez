@@ -17,16 +17,3 @@ public class Piece : MonoBehaviour
     }
 
 }
-
-//[System.Serializable]
-//class ChessThemeToggler
-//{
-//    [SerializeField] GameObject themeLight;
-//    [SerializeField] GameObject themeDark;
-
-//    public void ToggleTheme(eChessColor chessColor)
-//    {
-//        this.themeLight.SetActive(chessColor == eChessColor.Light);
-//        this.themeDark.SetActive(chessColor == eChessColor.Dark);
-//    }
-//}

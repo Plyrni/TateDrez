@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 88581604030358701}
   - component: {fileID: 88581604030358702}
   m_Layer: 0
-  m_Name: BasePiece
+  m_Name: BasePawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,8 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessThemeToggler:
-    objLight: {fileID: 0}
-    objDark: {fileID: 0}
+    themeLight: {fileID: 0}
+    themeDark: {fileID: 0}
 --- !u!1 &4559953753040446556
 GameObject:
   m_ObjectHideFlags: 0

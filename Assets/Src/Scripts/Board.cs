@@ -1,14 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
+[System.Serializable]
 public class Board : MonoBehaviour
 {
-    [SerializeField] private Vector2 boardSize;
-    [SerializeField] private Tile tilePrefab;
+    [HideInInspector]public UnityEvent<Tile> OnTileSpawned;
 
-    private List<List<Tile>> listTiles = new List<List<Tile>>();
+    [SerializeField] private Vector2 _boardSize;
+    [SerializeField] private Tile _tilePrefab;
+
+    private List<List<Tile>> _listTiles = new List<List<Tile>>();
     [SerializeField] private Grid _grid;
 
     private void Awake()
@@ -24,53 +29,35 @@ public class Board : MonoBehaviour
         this.InitBoardAtStartup();
     }
 
-    private void InitBoardAtStartup()
+    public void BakeBoard()
     {
-        /// Since "listTiles" is empty at startup, we make sure there is no Tile left before baking
-        foreach (var item in this._grid.GetComponentsInChildren<Tile>())
-        {
-            Destroy(item.gameObject);
-        }
-
-        this.BakeBoard();
-    }
-
-    private void BakeBoard()
-    {
-        ClearBoardTiles();
+        this.ClearBoardTiles();
 
         Vector3Int currentCell = Vector3Int.zero;
-        Vector3 currentCell_WorldCoordinates = Vector3.zero;
 
-        for (int x = 0; x < this.boardSize.x; x++)
+        for (int x = 0; x < this._boardSize.x; x++)
         {
             // Update variables
-            this.listTiles.Add(new List<Tile>());
+            this._listTiles.Add(new List<Tile>());
             currentCell.x = x;
 
-            for (int y = 0; y < this.boardSize.y; y++)
+            for (int y = 0; y < this._boardSize.y; y++)
             {
                 // Update variables
                 currentCell.y = y;
-                currentCell_WorldCoordinates = this._grid.CellToWorld(currentCell);
 
-                Tile newTile = this.SpawnTile(currentCell_WorldCoordinates);
-                newTile.cellCoordinates = currentCell;
-
-                // Compute color
-                eChessColor tileColor = (x + y) % 2 == 0 ? eChessColor.Light : eChessColor.Dark;
-                newTile.SetColorTheme(tileColor);
+                Tile newTile = this.SpawnTile(currentCell);
 
                 // Store tile for future use
-                this.listTiles[x].Add(newTile);
+                this._listTiles[x].Add(newTile);
             }
         }
 
         this.CenterGrid();
     }
-    private void ClearBoardTiles()
+    public void ClearBoardTiles()
     {
-        foreach (var item in listTiles)
+        foreach (var item in _listTiles)
         {
             foreach (var tile in item)
             {
@@ -78,9 +65,9 @@ public class Board : MonoBehaviour
             }
             item.Clear();
         }
-        this.listTiles.Clear();
+        this._listTiles.Clear();
     }
-    private void ClearBoardTiles_Editor()
+    public void ClearBoardTiles_Editor()
     {
         /// Since "listTiles" might be empty, we make sure there is no Tile left before baking
         foreach (var item in this._grid.GetComponentsInChildren<Tile>())
@@ -89,25 +76,45 @@ public class Board : MonoBehaviour
         }
 
         /// Clear list in case it isn't empty
-        foreach (var item in listTiles)
+        foreach (var item in _listTiles)
         {
             item.Clear();
         }
-        this.listTiles.Clear();
+        this._listTiles.Clear();
     }
 
-    private void CenterGrid()
+    private void InitBoardAtStartup()
     {
-        this._grid.transform.localPosition = new Vector3(-boardSize.x / 2 * _grid.cellSize.x + _grid.cellSize.x / 2, this._grid.transform.localPosition.y, -boardSize.y / 2 * _grid.cellSize.z + +_grid.cellSize.z / 2);
+        /// Rebake board for safety :        
+        // We make sure to destroy every existing Tile child
+        foreach (var item in this._grid.GetComponentsInChildren<Tile>())
+        {
+            Destroy(item.gameObject);
+        }
+
+        this.BakeBoard();
     }
-    private Tile SpawnTile(Vector3 worldCoordinates)
+    private Tile SpawnTile(Vector3Int cellCoordinate)
     {
-        return Instantiate(this.tilePrefab, worldCoordinates, Quaternion.identity, this._grid.transform);
+        Vector3 currentCell_WorldCoordinates = this._grid.CellToWorld(cellCoordinate);
+        Tile newTile = Instantiate(this._tilePrefab, currentCell_WorldCoordinates, this._grid.transform.rotation, this._grid.transform);
+        newTile.cellCoordinates = cellCoordinate;
+        newTile.transform.localScale = this._grid.cellSize;
+
+        this.OnTileSpawned?.Invoke(newTile);
+        return newTile;
+    }   
+    protected void CenterGrid()
+    {
+        float offsetXV0 = -(_boardSize.x * _grid.cellSize.x + (_boardSize.x - 1) * _grid.cellGap.x) / 2 + _grid.cellSize.x/2;
+        float offsetZV0 = -(_boardSize.y * _grid.cellSize.z + (_boardSize.y - 1) * _grid.cellGap.z) / 2 + _grid.cellSize.z/2;
+
+        this._grid.transform.localPosition = new Vector3(offsetXV0, this._grid.transform.localPosition.y, offsetZV0);        
     }
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(Board))]
-    public class MyScriptEditor : Editor
+    public class Board_Editor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -118,7 +125,7 @@ public class Board : MonoBehaviour
             {
                 if (Application.isPlaying == false)
                 {
-                    myScript.ClearBoardTiles_Editor();                    
+                    myScript.ClearBoardTiles_Editor();
                 }
                 myScript.BakeBoard();
             }
