@@ -14,9 +14,10 @@ public class GameBoard : MonoBehaviour
             this._board = GetComponentInChildren<Board>();
         }
         this._board.OnTileSpawned.AddListener(this.OnSpawnTile);
+        this._board.BakeBoard();
     }
 
-    public void OnSpawnTile(Tile spawnedTile)
+    private void OnSpawnTile(ChessTile2D spawnedTile)
     {
         // Compute color
         float moduloTileCoord = (spawnedTile.cellCoordinates.x + spawnedTile.cellCoordinates.y) % 2;

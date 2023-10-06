@@ -79,8 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessThemeToggler:
-    themeLight: {fileID: 0}
-    themeDark: {fileID: 0}
+    themeLight: {fileID: 4559953753482408679}
+    themeDark: {fileID: 4559953753040446556}
 --- !u!1 &4559953753040446556
 GameObject:
   m_ObjectHideFlags: 0
