@@ -6,6 +6,7 @@ public class PawnContainer : MonoBehaviour
 {
     [SerializeField] eChessColor chessTeam;
     [SerializeField] Board _board;
+    private PawnContainer_Controller tileController = new PawnContainer_Controller();
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class PawnContainer : MonoBehaviour
         newPawn.transform.localScale = this._board.Grid.cellSize.x * Vector3.one;
         newPawn.chessThemeToggler.ToggleTheme(this.chessTeam);
         tile.pawnSlot.SetObject(newPawn.gameObject);
+        tile.tileController = this.tileController;
     }
 
     public void OnSpawnTile(ChessTile2D chessTile)
@@ -48,4 +50,9 @@ public class PawnContainer : MonoBehaviour
     {
         this._board.OnTileSpawned.RemoveListener(this.OnSpawnTile);
     }
+}
+
+public class PawnContainer_Controller : ITileInteractionController
+{
+
 }
