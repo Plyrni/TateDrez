@@ -59,7 +59,7 @@ public class Board : MonoBehaviour
 
                 // Compute color
                 eChessColor tileColor = (x + y) % 2 == 0 ? eChessColor.Light : eChessColor.Dark;
-                newTile.SetColor(tileColor);
+                newTile.SetColorTheme(tileColor);
 
                 // Store tile for future use
                 this.listTiles[x].Add(newTile);
@@ -80,6 +80,22 @@ public class Board : MonoBehaviour
         }
         this.listTiles.Clear();
     }
+    private void ClearBoardTiles_Editor()
+    {
+        /// Since "listTiles" might be empty, we make sure there is no Tile left before baking
+        foreach (var item in this._grid.GetComponentsInChildren<Tile>())
+        {
+            DestroyImmediate(item.gameObject);
+        }
+
+        /// Clear list in case it isn't empty
+        foreach (var item in listTiles)
+        {
+            item.Clear();
+        }
+        this.listTiles.Clear();
+    }
+
     private void CenterGrid()
     {
         this._grid.transform.localPosition = new Vector3(-boardSize.x / 2 * _grid.cellSize.x + _grid.cellSize.x / 2, this._grid.transform.localPosition.y, -boardSize.y / 2 * _grid.cellSize.z + +_grid.cellSize.z / 2);
@@ -98,8 +114,12 @@ public class Board : MonoBehaviour
             DrawDefaultInspector();
 
             Board myScript = (Board)target;
-            if (GUILayout.Button("BakeBoard"))
+            if (GUILayout.Button("BakeBoard (Rebaked at startup)"))
             {
+                if (Application.isPlaying == false)
+                {
+                    myScript.ClearBoardTiles_Editor();                    
+                }
                 myScript.BakeBoard();
             }
         }

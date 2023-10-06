@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Piece : MonoBehaviour
 {
@@ -15,18 +16,17 @@ public class Piece : MonoBehaviour
 
     }
 
-
 }
 
-[System.Serializable]
-class ChessThemeToggler
-{
-    [SerializeField] GameObject objLight;
-    [SerializeField] GameObject objDark;
+//[System.Serializable]
+//class ChessThemeToggler
+//{
+//    [SerializeField] GameObject themeLight;
+//    [SerializeField] GameObject themeDark;
 
-    public void EnableTheme(eChessColor chessColor)
-    {
-        this.objLight.SetActive(chessColor == eChessColor.Light);
-        this.objDark.SetActive(chessColor == eChessColor.Dark);
-    }
-}
+//    public void ToggleTheme(eChessColor chessColor)
+//    {
+//        this.themeLight.SetActive(chessColor == eChessColor.Light);
+//        this.themeDark.SetActive(chessColor == eChessColor.Dark);
+//    }
+//}

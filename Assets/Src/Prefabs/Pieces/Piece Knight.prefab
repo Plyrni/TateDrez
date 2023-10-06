@@ -57,6 +57,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfdc986e0b386b8438d42aead1de6f12, type: 3}
+--- !u!1 &5235668505220743805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1742490947705592, guid: cfdc986e0b386b8438d42aead1de6f12,
+    type: 3}
+  m_PrefabInstance: {fileID: 5237374162482518149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5907199989742828632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,6 +130,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 88581604030358702, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
+      propertyPath: chessThemeToggler.themeDark
+      value: 
+      objectReference: {fileID: 6601078291065090332}
+    - target: {fileID: 88581604030358702, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
+      propertyPath: chessThemeToggler.themeLight
+      value: 
+      objectReference: {fileID: 5235668505220743805}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0afeaf262e767ba4db828c0779545280, type: 3}
 --- !u!4 &7976616906811545607 stripped
@@ -195,3 +211,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+--- !u!1 &6601078291065090332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6601588149972659172}
+  m_PrefabAsset: {fileID: 0}

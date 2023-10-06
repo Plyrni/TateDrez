@@ -7,14 +7,12 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-	[SerializeField] Color _colorLight;
-	[SerializeField] Color _colorDark;
-	[HideInInspector] public Vector3 cellCoordinates;
-	[SerializeField] MeshRenderer meshRenderer;
+	[SerializeField] ChessThemeToggler chessThemeToggler;
 
-	public virtual void SetColor(eChessColor color)
+	[HideInInspector] public Vector3 cellCoordinates;
+
+	public virtual void SetColorTheme(eChessColor colorTheme)
     {
-		Color newColor = color == eChessColor.Light ? _colorLight : _colorDark;
-		this.meshRenderer.material.color = newColor;
+		this.chessThemeToggler.ToggleTheme(colorTheme);
     }
 }
