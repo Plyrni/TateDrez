@@ -8,8 +8,9 @@ public class Board : MonoBehaviour
     [SerializeField] private Vector2 boardSize;
     [SerializeField] private Tile tilePrefab;
 
-    [SerializeField] private Grid _grid;
     private List<List<Tile>> listTiles = new List<List<Tile>>();
+    [SerializeField] private Grid _grid;
+
     private void Awake()
     {
         if (this._grid == null)
@@ -20,6 +21,17 @@ public class Board : MonoBehaviour
 
     void Start()
     {
+        this.InitBoardAtStartup();
+    }
+
+    private void InitBoardAtStartup()
+    {
+        /// Since "listTiles" is empty at startup, we make sure there is no Tile left before baking
+        foreach (var item in this._grid.GetComponentsInChildren<Tile>())
+        {
+            Destroy(item.gameObject);
+        }
+
         this.BakeBoard();
     }
 
@@ -43,6 +55,7 @@ public class Board : MonoBehaviour
                 currentCell_WorldCoordinates = this._grid.CellToWorld(currentCell);
 
                 Tile newTile = this.SpawnTile(currentCell_WorldCoordinates);
+                newTile.cellCoordinates = currentCell;
 
                 // Compute color
                 eChessColor tileColor = (x + y) % 2 == 0 ? eChessColor.Light : eChessColor.Dark;
@@ -54,7 +67,6 @@ public class Board : MonoBehaviour
         }
 
         this.CenterGrid();
-
     }
     private void ClearBoardTiles()
     {
@@ -77,6 +89,7 @@ public class Board : MonoBehaviour
         return Instantiate(this.tilePrefab, worldCoordinates, Quaternion.identity, this._grid.transform);
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(Board))]
     public class MyScriptEditor : Editor
     {
@@ -91,4 +104,5 @@ public class Board : MonoBehaviour
             }
         }
     }
+#endif
 }
