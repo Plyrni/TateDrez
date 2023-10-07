@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameBoard : MonoBehaviour
 {
     [SerializeField] Board _board;
+    GameBoard_Controller board_Controller = new GameBoard_Controller();
 
     private void Awake()
     {
@@ -23,6 +24,16 @@ public class GameBoard : MonoBehaviour
         float moduloTileCoord = (spawnedTile.cellCoordinates.x + spawnedTile.cellCoordinates.y) % 2;
         eChessColor tileColor = moduloTileCoord == 0 ? eChessColor.Light : eChessColor.Dark;
         spawnedTile.SetColorTheme(tileColor);
+        spawnedTile.tileController = board_Controller;
+    }
+}
+
+
+public class GameBoard_Controller : ITileInteractionController
+{
+    public void NotifyTouch(ITileInterractable tile)
+    {
+        Debug.Log("GameBoard notified");
     }
 }
 

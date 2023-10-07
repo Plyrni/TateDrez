@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: knight_white
       objectReference: {fileID: 0}
+    - target: {fileID: 1742490947705592, guid: cfdc986e0b386b8438d42aead1de6f12, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: cfdc986e0b386b8438d42aead1de6f12, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -153,6 +157,10 @@ PrefabInstance:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
       value: knight_black
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_RootOrder

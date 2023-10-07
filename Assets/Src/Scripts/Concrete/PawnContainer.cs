@@ -16,14 +16,7 @@ public class PawnContainer : MonoBehaviour
 
     private void Start()
     {
-        this.FillWithPawn();
-    }
-
-    private void FillWithPawn()
-    {
-        this.AddPawn(ePawnType.Knight);
-        this.AddPawn(ePawnType.Rook);
-        this.AddPawn(ePawnType.Bishop);
+        this.FillWithPawns();
     }
     public void AddPawn(ePawnType pawnType)
     {
@@ -38,12 +31,18 @@ public class PawnContainer : MonoBehaviour
         newPawn.transform.localScale = this._board.Grid.cellSize.x * Vector3.one;
         newPawn.chessThemeToggler.ToggleTheme(this.chessTeam);
         tile.pawnSlot.SetObject(newPawn.gameObject);
-        tile.tileController = this.tileController;
     }
+    private void FillWithPawns()
+    {
+        this.AddPawn(ePawnType.Knight);
+        this.AddPawn(ePawnType.Rook);
+        this.AddPawn(ePawnType.Bishop);
+    }    
 
     public void OnSpawnTile(ChessTile2D chessTile)
     {
-        chessTile.SetColorTheme(chessTeam);
+        chessTile.SetColorTheme(this.chessTeam);
+        chessTile.tileController = this.tileController;
     }
 
     private void OnDestroy()
@@ -54,5 +53,8 @@ public class PawnContainer : MonoBehaviour
 
 public class PawnContainer_Controller : ITileInteractionController
 {
-
+    public void NotifyTouch(ITileInterractable tile)
+    {
+        Debug.Log("PawnContainer notified");
+    }
 }

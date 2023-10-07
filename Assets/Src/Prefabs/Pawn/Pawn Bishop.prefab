@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bishop_white
       objectReference: {fileID: 0}
+    - target: {fileID: 1348297157947816, guid: 34b59fc67ea18d44ea488c5ececb0750, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 34b59fc67ea18d44ea488c5ececb0750, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -64,10 +68,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 88581602756290001, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 88581604030358700, guid: 0afeaf262e767ba4db828c0779545280,
         type: 3}
       propertyPath: m_Name
       value: Pawn Bishop
+      objectReference: {fileID: 0}
+    - target: {fileID: 88581604030358700, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 88581604030358701, guid: 0afeaf262e767ba4db828c0779545280,
         type: 3}
@@ -126,8 +140,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4559953753040446556, guid: 0afeaf262e767ba4db828c0779545280,
         type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559953753040446556, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559953753482408679, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0afeaf262e767ba4db828c0779545280, type: 3}
@@ -153,6 +177,10 @@ PrefabInstance:
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_Name
       value: bishop_black
+      objectReference: {fileID: 0}
+    - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_RootOrder
