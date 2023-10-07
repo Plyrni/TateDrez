@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class PawnInstancier : MonoBehaviour
 {
     static public PawnInstancier Instance;
@@ -22,13 +23,13 @@ public class PawnInstancier : MonoBehaviour
         {
             case ePawnType.Knight:
                 return prefabKnight;
-                break;
+                //break;
             case ePawnType.Rook:
                 return prefabRook;
-                break;
+                //break;
             case ePawnType.Bishop:
                 return prefabBishop;
-                break;
+                //break;
             default:
                 break;
         }

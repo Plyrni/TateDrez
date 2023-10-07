@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class GameBoard : MonoBehaviour
+public class GameBoard : MonoBehaviour, IBoardOwner
 {
     [SerializeField] Board _board;
-    GameBoard_Controller board_Controller = new GameBoard_Controller();
+    GameBoard_TileController tileController;
+
+    public Board Board => this._board;
 
     private void Awake()
     {
+        this.tileController = new GameBoard_TileController(this);
+
         if (this._board == null)
         {
             this._board = GetComponentInChildren<Board>();
@@ -24,17 +28,9 @@ public class GameBoard : MonoBehaviour
         float moduloTileCoord = (spawnedTile.cellCoordinates.x + spawnedTile.cellCoordinates.y) % 2;
         eChessColor tileColor = moduloTileCoord == 0 ? eChessColor.Light : eChessColor.Dark;
         spawnedTile.SetColorTheme(tileColor);
-        spawnedTile.tileController = board_Controller;
+        spawnedTile.touchController = this.tileController;
     }
 }
 
-
-public class GameBoard_Controller : ITileInteractionController
-{
-    public void NotifyTouch(ITileInterractable tile)
-    {
-        Debug.Log("GameBoard notified");
-    }
-}
 
 

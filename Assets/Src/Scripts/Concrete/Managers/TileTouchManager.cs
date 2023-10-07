@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class TileTouchManager : MonoBehaviour
 {
     public static TileTouchManager Instance { get => instance; set => instance = value; }
@@ -32,14 +33,14 @@ public class TileTouchManager : MonoBehaviour
 
     private void OnInputTouch()
     {
-        ITileInterractable interractableTile = this.TryRaycastTileInterractable();
+        ITouchInterractable interractableTile = this.TryRaycastTileInterractable();
         if (interractableTile != null)
         {
             interractableTile.OnTouch();
         }
     }
 
-    private ITileInterractable TryRaycastTileInterractable()
+    private ITouchInterractable TryRaycastTileInterractable()
     {
         // Raycast from cam to world. Trying to collide with a tile
         Ray rayCam = this._camera.ScreenPointToRay(Input.mousePosition);
@@ -50,11 +51,11 @@ public class TileTouchManager : MonoBehaviour
         }
 
         // On collision detection, try to get ITileInterractable component
-        ITileInterractable tempTile = null;
+        ITouchInterractable tempTile = null;
         Rigidbody tileRB = hit.collider.attachedRigidbody;
         if (tileRB != null)
         {
-            tempTile = tileRB.GetComponent<ITileInterractable>();
+            tempTile = tileRB.GetComponent<ITouchInterractable>();
         }
         return tempTile;
     }

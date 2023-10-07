@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PawnContainer : MonoBehaviour
+public class PawnContainer : MonoBehaviour,IBoardOwner
 {
     [SerializeField] eChessColor chessTeam;
     [SerializeField] Board _board;
-    private PawnContainer_Controller tileController = new PawnContainer_Controller();
+    private PawnContainer_TileController tileController;
+
+    public Board Board => this._board;
 
     private void Awake()
     {
+        this.tileController = new PawnContainer_TileController();
         this._board.OnTileSpawned.AddListener(this.OnSpawnTile);
         this._board.BakeBoard();
     }
@@ -17,6 +20,7 @@ public class PawnContainer : MonoBehaviour
     private void Start()
     {
         this.FillWithPawns();
+        this.tileController.Init();
     }
     public void AddPawn(ePawnType pawnType)
     {
@@ -42,7 +46,7 @@ public class PawnContainer : MonoBehaviour
     public void OnSpawnTile(ChessTile2D chessTile)
     {
         chessTile.SetColorTheme(this.chessTeam);
-        chessTile.tileController = this.tileController;
+        chessTile.touchController = this.tileController;
     }
 
     private void OnDestroy()
@@ -51,10 +55,3 @@ public class PawnContainer : MonoBehaviour
     }
 }
 
-public class PawnContainer_Controller : ITileInteractionController
-{
-    public void NotifyTouch(ITileInterractable tile)
-    {
-        Debug.Log("PawnContainer notified");
-    }
-}

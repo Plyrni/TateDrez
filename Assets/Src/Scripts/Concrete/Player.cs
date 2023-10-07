@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Player : MonoBehaviour
+public class Player
 {
-	private void Awake()
-	{	
-		
-	}
+    public eChessColor chessColor;
+    public PawnContainer pawnContainer;
+    List<BasePawn> pawns;
 
-	void Start()
-	{
-		
-	}
+    public void Initialize()
+    {
+
+    }
 
 }

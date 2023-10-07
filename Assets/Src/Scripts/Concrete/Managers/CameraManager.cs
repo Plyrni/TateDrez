@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance { get => instance; set => instance = value; }
