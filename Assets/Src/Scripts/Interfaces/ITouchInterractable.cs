@@ -1,1 +1,14 @@
-using System.Collections;using System.Collections.Generic;using UnityEngine;public interface ITouchInterractable{    public ITouchInteractionController touchController { get; set; }    /// <summary>    /// Called when a tileInterractable gets clicked or touched    /// </summary>    public void OnTouch()    {        if (this.touchController == null)        {            Debug.LogError("Null TileController");        }        this.touchController.NotifyTouch(this);    }}
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public interface ITouchInterractable
+{
+    [SerializeField] ITouchInteraction OnTouchInteraction { get; }
+
+    /// <summary>
+    /// Called when a tileInterractable gets clicked or touched
+    /// </summary>
+    public void OnTouch();
+    public void EnableInterraction(bool enable);
+}

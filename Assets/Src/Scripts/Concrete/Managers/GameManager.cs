@@ -23,10 +23,15 @@ public class GameManager : MonoBehaviour
 
 	public void RandomizeFirstPlayer()
 	{
-        this.currentPlayerColor = (eChessColor)(Random.Range(0, 100) % 2);
+        this.SetCurrentPlayer((eChessColor)(Random.Range(0, 100) % 2));
 	}
 	public void NextPlayer()
 	{
-		this.currentPlayerColor = (eChessColor)(((int)currentPlayerColor + 1) % 2);
+        this.SetCurrentPlayer((eChessColor)(((int)currentPlayerColor + 1) % 2));
+    }
+	private void SetCurrentPlayer(eChessColor playerColor)
+    {
+		this.currentPlayerColor = playerColor;
+		Debug.Log("Current Player = " + this.currentPlayerColor);
     }
 }

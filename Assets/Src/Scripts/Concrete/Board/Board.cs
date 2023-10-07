@@ -6,16 +6,17 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class Board : MonoBehaviour
+public class Board : MonoBehaviour, ITileContainer
 {
-    [HideInInspector] public UnityEvent<ChessTile2D> OnTileSpawned;
+    public ITileContainerOwner Owner { get; set; }
     public Grid Grid { get => _grid; }
+
+    [HideInInspector] public UnityEvent<ChessTile2D> OnTileSpawned;
 
     [SerializeField] private Vector2 _boardSize;
     [SerializeField] private ChessTile2D _tilePrefab;
-
-    private List<List<ChessTile2D>> _listTiles = new List<List<ChessTile2D>>();
     [SerializeField] private Grid _grid;
+    private List<List<ChessTile2D>> _listTiles = new List<List<ChessTile2D>>();
 
     private void Awake()
     {

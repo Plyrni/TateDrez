@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PawnContainer : MonoBehaviour,IBoardOwner
+public class PawnContainer : MonoBehaviour,ITileContainerOwner
 {
     [SerializeField] eChessColor chessTeam;
     [SerializeField] Board _board;
-    private PawnContainer_TileController tileController;
+    //private PawnContainer_TileController tileController;
 
-    public Board Board => this._board;
-
+    public ITileContainer TileContainer => this._board;
     private void Awake()
     {
-        this.tileController = new PawnContainer_TileController();
+        //this.tileController = new PawnContainer_TileController();
         this._board.OnTileSpawned.AddListener(this.OnSpawnTile);
         this._board.BakeBoard();
     }
@@ -20,7 +19,7 @@ public class PawnContainer : MonoBehaviour,IBoardOwner
     private void Start()
     {
         this.FillWithPawns();
-        this.tileController.Init();
+        //this.tileController.Init();
     }
     public void AddPawn(ePawnType pawnType)
     {
@@ -46,7 +45,8 @@ public class PawnContainer : MonoBehaviour,IBoardOwner
     public void OnSpawnTile(ChessTile2D chessTile)
     {
         chessTile.SetColorTheme(this.chessTeam);
-        chessTile.touchController = this.tileController;
+        //chessTile.TouchController = this.tileController;
+        chessTile.Container = TileContainer;
     }
 
     private void OnDestroy()

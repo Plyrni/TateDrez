@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IBoardOwner
+public interface ITileContainerOwner
 {
-    Board Board { get; }
+    ITileContainer TileContainer { get; }
 }

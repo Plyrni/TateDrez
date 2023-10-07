@@ -86,6 +86,13 @@ MonoBehaviour:
     themeDark: {fileID: 7872834332441565910}
   pawnSlot: {fileID: 4211424557288229212}
   visual: {fileID: 2815243362650319323}
+  _onTouchInteraction:
+    rid: 6408132058594672645
+  references:
+    version: 2
+    RefIds:
+    - rid: 6408132058594672645
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!54 &2285936265850470363
 Rigidbody:
   m_ObjectHideFlags: 0

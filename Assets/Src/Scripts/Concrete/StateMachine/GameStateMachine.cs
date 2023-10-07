@@ -48,4 +48,9 @@ public class GameStateMachine : ABaseStateMachine<GameState, eGameState>
         base.SetState(state);
         this.OnGameStateChanged?.Invoke(this.CurrentStateEnum);
     }
+
+    public void NotifyTileTouched(ChessTile2D tile) 
+    {
+        this.CurrentState.OnChessTileTouched(tile);
+    }
 }

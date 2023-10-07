@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class GameBoard : MonoBehaviour, IBoardOwner
+public class GameBoard : MonoBehaviour, ITileContainerOwner
 {
     [SerializeField] Board _board;
-    GameBoard_TileController tileController;
+    //GameBoard_TileController tileController;
 
-    public Board Board => this._board;
+    public ITileContainer TileContainer => this._board;
 
     private void Awake()
     {
-        this.tileController = new GameBoard_TileController(this);
+        //this.tileController = new GameBoard_TileController(this);
 
         if (this._board == null)
         {
@@ -28,7 +28,8 @@ public class GameBoard : MonoBehaviour, IBoardOwner
         float moduloTileCoord = (spawnedTile.cellCoordinates.x + spawnedTile.cellCoordinates.y) % 2;
         eChessColor tileColor = moduloTileCoord == 0 ? eChessColor.Light : eChessColor.Dark;
         spawnedTile.SetColorTheme(tileColor);
-        spawnedTile.touchController = this.tileController;
+        //spawnedTile.TouchController = this.tileController;
+        spawnedTile.Container= this.TileContainer;
     }
 }
 

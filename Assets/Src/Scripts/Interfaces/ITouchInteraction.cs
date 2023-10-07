@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Manage what happen when you touch a Tile
 /// </summary>
-public interface ITouchInteractionController
+public interface ITouchInteraction
 {
-    public void NotifyTouch(ITouchInterractable tile);
+    public void Execute(ITouchInterractable tile);
 }
