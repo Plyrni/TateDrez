@@ -19,15 +19,6 @@ public class PawnContainerManager : MonoBehaviour
         _instance = this;
     }
 
-    public void Initialize()
-    {
-        this.containerLight.Initialize();
-        this.containerDark.Initialize();
-
-        this.containerLight.transform.position = this.inactivePawnSpot.position;
-        this.containerDark.transform.position = this.inactivePawnSpot.position;
-    }
-
     public PawnContainer GetContainer(eChessColor chessColor)
     {
         switch (chessColor)
@@ -41,7 +32,6 @@ public class PawnContainerManager : MonoBehaviour
         Debug.Log("Cant find container of color " + chessColor);
         return null;
     }
-
     public void ShowContainer(eChessColor chessColor)
     {
         eChessColor colorToShow = chessColor;
@@ -55,18 +45,11 @@ public class PawnContainerManager : MonoBehaviour
         this.HideContainer(eChessColor.Light);
         this.HideContainer(eChessColor.Dark);
     }
+
     private void HideContainer(eChessColor chessColor)
     {
         PawnContainer container = GetContainer(chessColor);
         container.transform.DOKill();
         container.transform.DOLocalMove(this.inactivePawnSpot.localPosition, 0.5f);
-    }
-
-    public void EnableFeedbackIdle(bool enable)
-    {
-        if (enable == true)
-        {
-
-        }
     }
 }

@@ -23,12 +23,12 @@ public class TurnManager
     public void AddBonusTurn(int nb = 1)
     {
         this.nbBonusTurn += nb;
-        Debug.Log("GET BONUS TURN !! Sheeesh");
+        Debug.Log("YOU GOT A BONUS TURN !! Sheeesh"); // Would be nice to fire a nice announcment && VFX for the player at this moment
     }
     private void SetCurrentPlayer(eChessColor playerColor)
     {
         this.CurrentColorTurn = playerColor;
         this.OnCurrentPlayerChanged?.Invoke(this.CurrentColorTurn);
-        Debug.Log("Current Player = " + this.CurrentColorTurn);
+        //Debug.Log("Current Player = " + this.CurrentColorTurn);
     }
 }

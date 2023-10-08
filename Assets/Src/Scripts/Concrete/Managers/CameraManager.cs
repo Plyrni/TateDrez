@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System;
-using UnityEngine.Windows.WebCam;
 using UnityEngine.Events;
 
 public enum eCamType
@@ -23,16 +22,15 @@ public class CameraManager : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera vcam_Home;
     CinemachineOrbitalTransposer _transposerHome;
     [SerializeField] float _homeCamSpeed = 30f;
+    private eCamType _currentCamType;
     /// <summary> newCamType, previousCamType</summary>
     public UnityEvent<eCamType, eCamType> OnSetCamera; 
-    private eCamType _currentCamType;
 
     private void Awake()
     {
         instance = this;
         this.OnSetCamera.AddListener(this.OnSetCam);
         this._transposerHome = vcam_Home.GetCinemachineComponent<CinemachineOrbitalTransposer>();
-
     }
 
     private void Update()
@@ -50,6 +48,7 @@ public class CameraManager : MonoBehaviour
         OnSetCamera?.Invoke(camType, this._currentCamType);
         this._currentCamType = camType;
     }
+
     private CinemachineVirtualCamera GetCam(eCamType vcamType)
     {
         switch (vcamType)
@@ -75,7 +74,6 @@ public class CameraManager : MonoBehaviour
             }
         }
     }
-
     private void OnSetCam(eCamType newCamType, eCamType previousCamType)
     {
         if (newCamType == eCamType.Home && previousCamType != newCamType)
@@ -83,6 +81,7 @@ public class CameraManager : MonoBehaviour
             this._transposerHome.m_XAxis.Value = 0;
         }
     }
+
     private void OnDestroy()
     {
         this.OnSetCamera.RemoveListener(this.OnSetCam);

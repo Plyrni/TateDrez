@@ -6,7 +6,7 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
 {
     [SerializeField] eChessColor chessTeam;
     [SerializeField] Board _board;
-    [SerializeField] public List<BasePawn> _listPawnsSpawned;
+    [SerializeField] public List<BasePawn> listPawnsSpawned;
 
     public ITileContainer TileContainer => this._board;
     public TileContainerOwnerType Type => TileContainerOwnerType.PawnContainer;
@@ -17,11 +17,11 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
         this._board.OnTileSpawned.AddListener(this.OnSpawnTile);
     }
 
-    public void Initialize()
+    public void Initialize(List<ePawnType> listPawnsToGenerate)
     {
         this._board.BakeBoard();
-        this._listPawnsSpawned.Clear();
-        this.FillWithPawns();
+        this.listPawnsSpawned.Clear();
+        this.FillWithPawns(listPawnsToGenerate);
     }
     public BasePawn AddPawn(ePawnType pawnType)
     {
@@ -37,19 +37,20 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
         newPawn.SetBaseScale(newPawn.transform.localScale);
         newPawn.ChessColor = this.chessTeam;
         tile.SetPawn(newPawn);
-        this._listPawnsSpawned.Add(newPawn);
+        this.listPawnsSpawned.Add(newPawn);
         return newPawn;
     }
-    private void FillWithPawns()
+    private void FillWithPawns(List<ePawnType> listPawnToGenerate)
     {
-        this.AddPawn(ePawnType.Knight);
-        this.AddPawn(ePawnType.Rook);
-        this.AddPawn(ePawnType.Bishop);
+        foreach (var item in listPawnToGenerate)
+        {
+            this.AddPawn(item);
+        }
     }
     public int GetNbPawnsInsideContainerBoard()
     {
         int nb = 0;
-        foreach (var item in _listPawnsSpawned)
+        foreach (var item in listPawnsSpawned)
         {
             if (item.slotParent.Container.Owner as PawnContainer != null)
             {

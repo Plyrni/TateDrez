@@ -19,7 +19,7 @@ public class PlayerManager
     private void AddPlayer(eChessColor playerColor)
     {
         Player newPlayer = new Player();
-        newPlayer.Initialize(playerColor);
+        newPlayer.InitializeTateDrez(playerColor);
         this._listPlayers.Add(newPlayer);
     }
 }

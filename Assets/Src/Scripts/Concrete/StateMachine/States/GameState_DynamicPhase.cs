@@ -7,7 +7,6 @@ public class GameState_DynamicPhase : GameState
 {
     SelectionManager selectionManager;
 
-
     public override void OnEnter()
     {
         base.OnEnter();

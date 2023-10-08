@@ -9,13 +9,14 @@ public class Player
     public eChessColor chessColor;
     public PawnContainer pawnContainer;
     public bool isWinner = false;
-    public List<BasePawn> Pawns => pawnContainer._listPawnsSpawned;    
+    public List<BasePawn> Pawns => pawnContainer.listPawnsSpawned;
 
-    public void Initialize(eChessColor color)
+    public void InitializeTateDrez(eChessColor color)
     {
         this.chessColor = color;
         this.pawnContainer = PawnContainerManager.Instance.GetContainer(this.chessColor);
-        this.pawnContainer.Initialize();
+        List<ePawnType> listPawnToGenerate = new List<ePawnType> { ePawnType.Knight, ePawnType.Rook, ePawnType.Bishop };
+        this.pawnContainer.Initialize(listPawnToGenerate);
     }
 
     public bool CanPawnsMove()

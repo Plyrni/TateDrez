@@ -4,8 +4,6 @@ using UnityEngine;
 
 public interface ITouchInterractable
 {
-    [SerializeField] ITouchInteraction OnTouchInteraction { get; }
-
     /// <summary>
     /// Called when a tileInterractable gets clicked or touched
     /// </summary>

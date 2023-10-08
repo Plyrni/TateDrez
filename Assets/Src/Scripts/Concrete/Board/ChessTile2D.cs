@@ -10,13 +10,11 @@ public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITil
     [SerializeField] ChessThemeToggler chessThemeToggler;
     [SerializeField] Transform visual;
     [SerializeField] Transform visualValidFeedback;
-    [SerializeReference] ITouchInteraction _onTouchInteraction;
     private BoxCollider boxCollider;
 
     public eChessColor ChessColor => chessThemeToggler.CurrentTheme;
     public Vector2Int cellCoordinates { get; set; }
     public ITileContainer Container { get; set; }
-    public ITouchInteraction OnTouchInteraction => this._onTouchInteraction;
     public bool IsSelected { get; set; }
     public BasePawn Pawn => this.pawnSlot.slotedObject;
 
@@ -61,7 +59,7 @@ public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITil
 
     public void OnTouch()
     {
-        this._onTouchInteraction.Execute(this);
+        
     }
     public void EnableInterraction(bool enable)
     {

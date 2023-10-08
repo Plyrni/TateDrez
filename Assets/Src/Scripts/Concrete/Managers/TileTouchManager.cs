@@ -35,7 +35,6 @@ public class TileTouchManager : MonoBehaviour
         if (interractable != null)
         {
             interractable.OnTouch();
-
             ChessTile2D tile = interractable as ChessTile2D;
             if (tile != null)
             {

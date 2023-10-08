@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// Define what happen when you touch the chessTile
+/// Define what happen when you touch the chessTile. Not used anymore
 /// </summary>
 public class DefaultTouchTileInteraction : ITouchInteraction
 {
