@@ -19,6 +19,7 @@ public class BasePawn : MonoBehaviour
     [SerializeField] ChessThemeToggler chessThemeToggler;
     [SerializeReference] public IPawnMovement movementController;
     Vector3 _baseScale = Vector3.one;
+    [SerializeField] ParticleSystem vfxEndMove;
 
     private void Start()
     {
@@ -35,9 +36,14 @@ public class BasePawn : MonoBehaviour
         this.slotParent?.UnsetObject();
         destination.SetObject(this, false);
 
-        this.transform.DOJump(destination.transform.position, 1f, 1, 0.3f).SetEase(Ease.InOutQuint).OnComplete(() => onComplete?.Invoke());
+        this.SetBaseScale(Vector3.one);
+        this.transform.DOJump(destination.transform.position, 1f, 1, 0.3f).SetEase(Ease.InOutQuint).OnComplete(() =>
+        {
+            this.vfxEndMove.Stop();
+            this.vfxEndMove.Play();
+            onComplete?.Invoke();
+        }).SetEase(Ease.InSine);
         this.transform.DORotateQuaternion(Quaternion.identity, 0.3f);
-        this._baseScale = Vector3.one;
         this.transform.DOScale(1f, 0.3f).SetEase(Ease.InOutQuint);
     }
     public void SetBaseScale(Vector3 scale)
@@ -60,12 +66,12 @@ public class BasePawn : MonoBehaviour
             this.transform.DOScaleZ(_baseScale.z, 0.5f).SetEase(Ease.InOutSine);
         });
     }
-    public void EndIdle()
+    public void EndIdle(float speed = 0.2f)
     {
         this.transform.DOKill();
-        this.transform.DOScaleY(_baseScale.y, 0.5f).SetEase(Ease.InOutSine);
-        this.transform.DOScaleX(_baseScale.x, 0.5f).SetEase(Ease.InOutSine);
-        this.transform.DOScaleZ(_baseScale.z, 0.5f).SetEase(Ease.InOutSine);
+        this.transform.DOScaleY(this._baseScale.y, speed).SetEase(Ease.InOutSine);
+        this.transform.DOScaleX(this._baseScale.x, speed).SetEase(Ease.InOutSine);
+        this.transform.DOScaleZ(this._baseScale.z, speed).SetEase(Ease.InOutSine);
     }
 
 }

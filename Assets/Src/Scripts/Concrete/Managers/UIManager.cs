@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     public void SetMenu(eGameState gameState)
     {
         this.menuHome.SetActive(gameState == eGameState.Menu);
-        this.menuGame.SetActive(gameState == eGameState.Placement);
+        this.menuGame.SetActive(gameState == eGameState.Placement || gameState == eGameState.Dynamic);
         this.menuWin.SetActive(gameState == eGameState.Win);
     }
 }

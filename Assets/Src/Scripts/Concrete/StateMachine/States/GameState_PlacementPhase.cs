@@ -99,8 +99,10 @@ public class GameState_PlacementPhase : GameState
     private void MovePawnSelectedTo(ChessTile2D destination, System.Action onComplete = null)
     {
         ChessTile2D tileSelected = this.selectionManager.GetLastSelected() as ChessTile2D;
-        tileSelected.Pawn.EndIdle();
-        tileSelected.Pawn.MoveTo(destination.pawnSlot, () => this.EndTurn());
+        BasePawn pawn = tileSelected.Pawn;
+        pawn.SetBaseScale(tileSelected.pawnSlot.transform.lossyScale);
+        pawn.EndIdle();
+        pawn.MoveTo(destination.pawnSlot, () => this.EndTurn());
         this._canSelect = false;
         this.gameManager.gameBoard.UnHighlighTiles();
 
