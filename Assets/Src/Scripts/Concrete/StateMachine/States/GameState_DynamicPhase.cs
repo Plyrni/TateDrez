@@ -113,7 +113,7 @@ public class GameState_DynamicPhase : GameState
         this.selectionManager.Clear();
         this.possiblesMoves.Clear();
         this.selectionManager.Select(tile);
-        Debug.Log("Select " + tile);
+        //Debug.Log("Select " + tile);
 
         return true;
     }

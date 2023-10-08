@@ -120,7 +120,7 @@ public class GameState_PlacementPhase : GameState
         this.gameManager.gameBoard.UnHighlighTiles();
         this.gameManager.gameBoard.HighLightTiles(this.gameManager.gameBoard.GetEmptyTiles());
 
-        Debug.Log("Select " + tile);
+        //Debug.Log("Select " + tile);
     }
 
     private void EndTurn()
