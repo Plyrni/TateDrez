@@ -6,12 +6,14 @@ using UnityEngine;
 public class GameState_DynamicPhase : GameState
 {
     SelectionManager selectionManager;
+    bool _canSelect = false;
 
     public override void OnEnter()
     {
         base.OnEnter();
         // Init variables
         this.selectionManager = new SelectionManager();
+        this._canSelect = true;
 
         CameraManager.Instance.SetCamera(eCamType.Game);
         UIManager.Instance.SetMenu(eGameState.Dynamic);
@@ -38,6 +40,7 @@ public class GameState_DynamicPhase : GameState
 
     private void ManageSelection(ChessTile2D tile)
     {
+        if (this._canSelect == false) { return; }
         if (tile.Container.Owner.Type == TileContainerOwnerType.PawnContainer) { return; }
 
         // No tile selected yet
@@ -100,7 +103,8 @@ public class GameState_DynamicPhase : GameState
     {
         ChessTile2D tileSelected = this.selectionManager.GetLastSelected() as ChessTile2D;
         tileSelected.Pawn.EndIdle();
-        tileSelected.Pawn.MoveTo(destination.pawnSlot, () => this.EndTurn());
+        tileSelected.Pawn.MoveTo(destination.pawnSlot, () => this.EndTurn()); 
+        this._canSelect = false;
     }
     private bool SelectFirstPawn(ChessTile2D tile)
     {
@@ -120,6 +124,7 @@ public class GameState_DynamicPhase : GameState
 
     private void OnCurrentPlayerChange(eChessColor playerColor)
     {
+        this._canSelect = true;
         this.EnableCurrentPLayerPawnIdle(true);
     }
     private void EndTurn()
