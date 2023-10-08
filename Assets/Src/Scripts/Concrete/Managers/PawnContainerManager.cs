@@ -61,4 +61,12 @@ public class PawnContainerManager : MonoBehaviour
         container.transform.DOKill();
         container.transform.DOMove(this.inactivePawnSpot.position, 0.5f);
     }
+
+    public void EnableFeedbackIdle(bool enable)
+    {
+        if (enable == true)
+        {
+
+        }
+    }
 }

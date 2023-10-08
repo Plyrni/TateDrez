@@ -15,8 +15,8 @@ public class Player
     {
         this.chessColor = color;
         this.pawnContainer = PawnContainerManager.Instance.GetContainer(this.chessColor);
+        this.pawnContainer.Initialize();
     }
-
 
     public bool CanPawnsMove()
     {

@@ -10,7 +10,7 @@ public class GameBoard : MonoBehaviour, ITileContainerOwner
     [SerializeField] Board _board;
 
     public ITileContainer TileContainer => this._board;
-
+    public TileContainerOwnerType Type => TileContainerOwnerType.GameBoard;
 
     private void Awake()
     {

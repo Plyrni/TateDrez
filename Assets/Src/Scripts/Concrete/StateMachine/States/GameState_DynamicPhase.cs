@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameState_DynamicPhase : GameState
@@ -15,7 +16,9 @@ public class GameState_DynamicPhase : GameState
 
         UIManager.Instance.SetMenu(eGameState.Dynamic);
         TileTouchManager.Instance.OnTileTouched.AddListener(OnTileTouched);
+        this.gameManager.TurnManager.OnCurrentPlayerChanged.AddListener(this.OnCurrentPlayerChange);
         this.HandleCasePlayerBlocked();
+        this.EnableCurrentPLayerPawnIdle(true);
     }
     public override void OnUpdate(float dt)
     {
@@ -24,6 +27,7 @@ public class GameState_DynamicPhase : GameState
     public override void OnExit()
     {
         TileTouchManager.Instance.OnTileTouched.RemoveListener(OnTileTouched);
+        this.gameManager.TurnManager.OnCurrentPlayerChanged.RemoveListener(this.OnCurrentPlayerChange);
     }
 
     private void OnTileTouched(ChessTile2D tile)
@@ -34,8 +38,7 @@ public class GameState_DynamicPhase : GameState
 
     private void ManageSelection(ChessTile2D tile)
     {
-        TileContainerType containerType = this.GetTileContainerType(tile);
-        if (containerType == TileContainerType.PawnContainer) { return; }
+        if (tile.Container.Owner.Type == TileContainerOwnerType.PawnContainer) { return; }
 
         // No tile selected yet
         if (this.selectionManager.currentSelection.Count == 0)
@@ -48,7 +51,7 @@ public class GameState_DynamicPhase : GameState
             // Try to select a new Pawn
             if (tile.Pawn != null)
             {
-                if (tile.Pawn.ChessColor != this.gameManager.CurrentPlayerColor)
+                if (tile.Pawn.ChessColor != this.gameManager.CurrentPlayer.chessColor)
                 {
                     Debug.Log("Tile occupied");
                     return;
@@ -80,7 +83,7 @@ public class GameState_DynamicPhase : GameState
             Debug.Log("No pawn on this slot");
             return false;
         }
-        if (tile.Pawn.ChessColor != this.gameManager.CurrentPlayerColor)
+        if (tile.Pawn.ChessColor != this.gameManager.CurrentPlayer.chessColor)
         {
             Debug.Log("That's not your pawns");
             return false;
@@ -96,9 +99,8 @@ public class GameState_DynamicPhase : GameState
     private void MovePawnSelectedTo(ChessTile2D destination, System.Action onComplete = null)
     {
         ChessTile2D tileSelected = this.selectionManager.GetLastSelected() as ChessTile2D;
-
+        tileSelected.Pawn.EndIdle();
         tileSelected.Pawn.MoveTo(destination.pawnSlot, () => this.EndTurn());
-
     }
     private bool SelectFirstPawn(ChessTile2D tile)
     {
@@ -116,15 +118,21 @@ public class GameState_DynamicPhase : GameState
         return true;
     }
 
+    private void OnCurrentPlayerChange(eChessColor playerColor)
+    {
+        this.EnableCurrentPLayerPawnIdle(true);
+    }
     private void EndTurn()
     {
         // Check if pawn aligned
         bool isAligned = false;
-        foreach (var pawn in gameManager.CurrentPlayer.Pawns)
+        foreach (var pawn in this.gameManager.CurrentPlayer.Pawns)
         {
             isAligned = this.gameManager.gameBoard.IsAligned(pawn.slotParent.ChessTileParent.cellCoordinates.x, pawn.slotParent.ChessTileParent.cellCoordinates.y, 3);
             if (isAligned == true) { break; }
         }
+                
+        this.EnableCurrentPLayerPawnIdle(false);
 
         if (isAligned == true)
         {
@@ -133,7 +141,7 @@ public class GameState_DynamicPhase : GameState
         }
         else if (HandleCasePlayerBlocked() == false)
         {
-            this.gameManager.NextPlayer();
+            this.gameManager.TurnManager.NextPlayer();
         }
     }
 
@@ -142,22 +150,25 @@ public class GameState_DynamicPhase : GameState
         bool canPlayerMove = gameManager.CurrentPlayer.CanPawnsMove();
         if (canPlayerMove == false)
         {
-            this.gameManager.NextPlayer();
-            this.gameManager.AddBonusTurn();
+            this.gameManager.TurnManager.NextPlayer();
+            this.gameManager.TurnManager.AddBonusTurn();
             return true;
         };
         return false;
     }
-    private TileContainerType GetTileContainerType(ChessTile2D tile)
+
+    private void EnableCurrentPLayerPawnIdle(bool enable)
     {
-        if (tile.Container.Owner as GameBoard != null)
+        foreach (var item in this.gameManager.CurrentPlayer.Pawns)
         {
-            return TileContainerType.GameBoard;
+            if (enable == true)
+            {
+                item.StartIdle();
+            }
+            else
+            {
+                item.EndIdle();
+            }
         }
-        else if (tile.Container.Owner as PawnContainer != null)
-        {
-            return TileContainerType.PawnContainer;
-        }
-        return TileContainerType.NONE;
     }
 }

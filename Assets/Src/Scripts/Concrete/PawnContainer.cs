@@ -9,6 +9,8 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
     [SerializeField] public List<BasePawn> _listPawnsSpawned;
 
     public ITileContainer TileContainer => this._board;
+    public TileContainerOwnerType Type => TileContainerOwnerType.PawnContainer;
+
     private void Awake()
     {
         this._board.Owner = this;
@@ -30,8 +32,9 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
             return null;
         }
 
-        BasePawn newPawn = Instantiate(PawnInstancier.Instance.GetPrefab(pawnType), null);        
+        BasePawn newPawn = Instantiate(PawnInstancier.Instance.GetPrefab(pawnType), null);
         newPawn.transform.localScale = this._board.Grid.cellSize.x * Vector3.one;
+        newPawn.SetBaseScale(newPawn.transform.localScale);
         newPawn.ChessColor = this.chessTeam;
         tile.SetPawn(newPawn);
         this._listPawnsSpawned.Add(newPawn);
