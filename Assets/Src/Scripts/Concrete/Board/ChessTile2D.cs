@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -6,9 +7,9 @@ using UnityEngine;
 public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITileContainerElement
 {
     [SerializeField] public TilePawnSlot pawnSlot;
-
     [SerializeField] ChessThemeToggler chessThemeToggler;
     [SerializeField] Transform visual;
+    [SerializeField] Transform visualValidFeedback;
     [SerializeReference] ITouchInteraction _onTouchInteraction;
     private BoxCollider boxCollider;
 
@@ -22,6 +23,7 @@ public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITil
     private void Awake()
     {
         this.boxCollider = GetComponent<BoxCollider>();
+        this.pawnSlot.ChessTileParent = this;
     }
     private void Start()
     {
@@ -52,6 +54,10 @@ public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITil
     {
         this.pawnSlot.SetObject(pawn, teleport);
     }
+    public void EnableValidFeedback(bool enable)
+    {
+        this.visualValidFeedback.gameObject.SetActive(enable);
+    }
 
     public void OnTouch()
     {
@@ -65,9 +71,12 @@ public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITil
     public void OnSelect()
     {
         IsSelected = true;
+        this.visual.DOLocalMoveY(0.3f * this.visual.transform.localScale.y, 0.2f);
     }
     public void OnUnSelect()
     {
         IsSelected = false;
+        this.visual.DOKill();
+        this.visual.DOLocalMoveY(0f, 0.2f);
     }
 }

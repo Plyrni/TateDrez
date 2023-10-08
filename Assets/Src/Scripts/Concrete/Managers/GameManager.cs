@@ -13,12 +13,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get => instance; set => instance = value; }
     static GameManager instance;
+    public eChessColor CurrentPlayerColor { get => this.currentPlayerColor; set => SetCurrentPlayer(value); }
+    public Player CurrentPlayer { get => this.GetPlayer(this.currentPlayerColor); }
 
     public GameStateMachine StateMachine;
-    public eChessColor CurrentPlayerColor { get => currentPlayerColor; set => SetCurrentPlayer(value); }
     public UnityEvent<eChessColor> OnCurrentPlayerChanged;
     public GameBoard gameBoard;
 
+    private List<Player> _listPlayers = new List<Player>();
     private eChessColor currentPlayerColor;
 
     private void Awake()
@@ -26,6 +28,19 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    public void InitializePlayers()
+    {
+        PawnContainerManager.Instance.Initialize();
+        this.gameBoard.Initialize();
+
+        this._listPlayers.Clear();
+        this.AddPlayer(eChessColor.Light);
+        this.AddPlayer(eChessColor.Dark);
+    }
+    public Player GetPlayer(eChessColor color)
+    {
+        return this._listPlayers[(int)color];
+    }
     public void RandomizeFirstPlayer()
     {
         this.SetCurrentPlayer((eChessColor)(Random.Range(0, 100) % 2));
@@ -40,5 +55,11 @@ public class GameManager : MonoBehaviour
         this.OnCurrentPlayerChanged?.Invoke(this.currentPlayerColor);
 
         Debug.Log("Current Player = " + this.currentPlayerColor);
+    }
+    private void AddPlayer(eChessColor playerColor)
+    {
+        Player newPlayer = new Player();
+        newPlayer.Initialize(playerColor);
+        this._listPlayers.Add(newPlayer);
     }
 }

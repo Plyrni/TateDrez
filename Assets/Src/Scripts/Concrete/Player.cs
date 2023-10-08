@@ -7,11 +7,13 @@ public class Player
 {
     public eChessColor chessColor;
     public PawnContainer pawnContainer;
-    List<BasePawn> pawns;
+    public bool isWinner = false;
+    public List<BasePawn> Pawns => pawnContainer._listPawnsSpawned;
 
-    public void Initialize()
+    public void Initialize(eChessColor color)
     {
-
+        this.chessColor = color;
+        this.pawnContainer = PawnContainerManager.Instance.GetContainer(this.chessColor);
     }
 
 }

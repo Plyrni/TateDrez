@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameObject menuHome;
     [SerializeField] GameObject menuGame;
+    [SerializeField] GameObject menuWin;
 
     void Awake()
     {
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
     public void SetMenu(eGameState gameState)
     {
         this.menuHome.SetActive(gameState == eGameState.Menu);
-        //this.menuGame.SetActive(gameState == eGameState.Placement);
+        this.menuGame.SetActive(gameState == eGameState.Placement);
+        this.menuWin.SetActive(gameState == eGameState.Win);
     }
 }

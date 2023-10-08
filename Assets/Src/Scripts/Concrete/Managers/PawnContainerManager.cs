@@ -23,6 +23,9 @@ public class PawnContainerManager : MonoBehaviour
     {
         this.containerLight.Initialize();
         this.containerDark.Initialize();
+
+        this.containerLight.transform.position = this.inactivePawnSpot.position;
+        this.containerDark.transform.position = this.inactivePawnSpot.position;
     }
 
     public PawnContainer GetContainer(eChessColor chessColor)
@@ -46,5 +49,16 @@ public class PawnContainerManager : MonoBehaviour
 
         this.GetContainer(colorToShow).transform.DOMove(this.activePawnSpot.position, 0.4f).SetDelay(0.3f);
         this.GetContainer(colorToHide).transform.DOMove(this.inactivePawnSpot.position, 0.5f);
+    }
+    public void HideAllContainers()
+    {
+        this.HideContainer(eChessColor.Light);
+        this.HideContainer(eChessColor.Dark);
+    }
+    private void HideContainer(eChessColor chessColor)
+    {
+        PawnContainer container = GetContainer(chessColor);
+        container.transform.DOKill();
+        container.transform.DOMove(this.inactivePawnSpot.position, 0.5f);
     }
 }

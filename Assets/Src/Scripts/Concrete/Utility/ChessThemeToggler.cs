@@ -9,7 +9,7 @@ public class ChessThemeToggler
 
     [SerializeField] GameObject themeLight;
     [SerializeField] GameObject themeDark;
-    private eChessColor _currentTheme = eChessColor.Light;
+    private eChessColor _currentTheme = eChessColor.NONE;
 
 
     public void ToggleTheme(eChessColor chessColor)

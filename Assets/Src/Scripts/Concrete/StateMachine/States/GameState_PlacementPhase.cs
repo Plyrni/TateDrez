@@ -23,11 +23,10 @@ public class GameState_PlacementPhase : GameState
         this.pawnContainerManager = PawnContainerManager.Instance;
 
         // Init state environment
-        this.pawnContainerManager.Initialize();
+        this.gameManager.InitializePlayers();
         UIManager.Instance.SetMenu(eGameState.Placement);
         TileTouchManager.Instance.OnTileTouched.AddListener(OnTileTouched);
         this.gameManager.OnCurrentPlayerChanged.AddListener(this.OnCurrentPlayerChange);
-
 
         this.gameManager.RandomizeFirstPlayer();
     }
@@ -43,6 +42,8 @@ public class GameState_PlacementPhase : GameState
         // Remove events listeners
         TileTouchManager.Instance.OnTileTouched.RemoveListener(this.OnTileTouched);
         this.gameManager.OnCurrentPlayerChanged.RemoveListener(this.OnCurrentPlayerChange);
+        this.pawnContainerManager.HideAllContainers();
+        this.gameManager.gameBoard.UnHighlighTiles();
     }
 
     private void OnTileTouched(ChessTile2D tile)
@@ -53,7 +54,7 @@ public class GameState_PlacementPhase : GameState
 
     private void ManageSelection(ChessTile2D tile)
     {
-        TileContainerType containerType = this.GetTileContainerType(tile);        
+        TileContainerType containerType = this.GetTileContainerType(tile);
 
         // No tile selected yet
         if (this.selectionManager.currentSelection.Count == 0)
@@ -65,7 +66,7 @@ public class GameState_PlacementPhase : GameState
                     Debug.Log("No pawn on this slot");
                     return;
                 }
-                if (tile.ChessColor != this.gameManager.CurrentPlayerColor)
+                if (tile.Pawn.ChessColor != this.gameManager.CurrentPlayerColor)
                 {
                     Debug.Log("That's not your pawns");
                     return;
@@ -102,7 +103,8 @@ public class GameState_PlacementPhase : GameState
         ChessTile2D tileSelected = this.selectionManager.GetLastSelected() as ChessTile2D;
 
         tileSelected.Pawn.MoveTo(destination.pawnSlot, () => this.EndTurn());
-        
+        this.gameManager.gameBoard.UnHighlighTiles();
+
     }
     private void SelectFirstPawn(ChessTile2D tile)
     {
@@ -114,15 +116,42 @@ public class GameState_PlacementPhase : GameState
 
         this.selectionManager.Clear();
         this.selectionManager.Select(tile);
-        Debug.Log("Select " + tile);
-        // Show possible spots
+        this.gameManager.gameBoard.UnHighlighTiles();
+        this.gameManager.gameBoard.HighLightTiles(this.gameManager.gameBoard.GetEmptyTiles());
+
+        Debug.Log("Select " + tile);        
     }
 
     private void EndTurn()
     {
         // Check if pawn aligned
+        
+        bool isAligned = false;
+        foreach (var pawn in gameManager.CurrentPlayer.Pawns)
+        {
+            // Only check GameBoard
+            if (this.GetTileContainerType(pawn.slotParent.ChessTileParent) == TileContainerType.PawnContainer)
+            {
+                continue;
+            }
 
-        this.gameManager.NextPlayer();
+            isAligned = this.gameManager.gameBoard.IsAligned(pawn.slotParent.ChessTileParent.cellCoordinates.x, pawn.slotParent.ChessTileParent.cellCoordinates.y, 3);
+            if (isAligned == true) { break; }
+        }
+
+        if (isAligned == true)
+        {
+            this.gameManager.CurrentPlayer.isWinner = true;
+            this.gameManager.StateMachine.SetState(eGameState.Win);
+        }
+        else
+        {
+            this.gameManager.NextPlayer();
+            if (this.gameManager.CurrentPlayer.pawnContainer.GetNbPawnsInsideContainerBoard() == 0)
+            {
+                this.gameManager.StateMachine.SetState(eGameState.Dynamic);
+            }
+        }
     }
 
 

@@ -10,6 +10,7 @@ public class Board : MonoBehaviour, ITileContainer
 {
     public ITileContainerOwner Owner { get; set; }
     public Grid Grid { get => _grid; }
+    public Vector2 BoardSize { get => this._boardSize; }
 
     [HideInInspector] public UnityEvent<ChessTile2D> OnTileSpawned;
 
@@ -42,9 +43,7 @@ public class Board : MonoBehaviour, ITileContainer
     }
     public ChessTile2D GetTile(int x, int y)
     {
-        if (this._listTiles.Count == 0 ||
-               x >= this._listTiles.Count ||
-               y >= this._listTiles[0].Count)
+        if (this.IsInsideBoard(x,y) == false)
         {
             Debug.LogWarning("OutOfBound : " + x + ":" + y);
             return null;
@@ -143,9 +142,21 @@ public class Board : MonoBehaviour, ITileContainer
     }
 
 
-    public bool IsInsideBoard(int row, int col)
+    public bool IsInsideBoard(Vector2Int position)
     {
-        return row >= 0 && row < this._listTiles.Count && col >= 0 && col < this._listTiles[0].Count;
+        return this.IsInsideBoard(position.x, position.y);
+    }
+    public bool IsInsideBoard(int x, int y)
+    {
+        return x >= 0 && x < this._listTiles.Count && y >= 0 && y < this._listTiles[0].Count;
+    }
+    public bool IsCellEmpty(int x,int y)
+    {
+        return this.IsCellEmpty(new Vector2Int(x, y));
+    }
+    public bool IsCellEmpty(Vector2Int cellCoordinate)
+    {
+        return this.GetTile(cellCoordinate).Pawn == null;
     }
 }
 

@@ -14,10 +14,20 @@ public enum ePawnType
 
 public class BasePawn : MonoBehaviour
 {
-    [SerializeField] public ChessThemeToggler chessThemeToggler;
+    public TilePawnSlot slotParent;
+    public eChessColor ChessColor { get => this.chessThemeToggler.CurrentTheme; set => this.SetChessColor(value); }
+    [SerializeField] ChessThemeToggler chessThemeToggler;
+    [SerializeReference] public IPawnMovement movementController;
 
+
+    public void SetChessColor(eChessColor color)
+    {
+        this.chessThemeToggler.ToggleTheme(color);
+        this.gameObject.name += "_"+color;
+    }
     public void MoveTo(TilePawnSlot destination, Action onComplete = null)
     {
+        this.slotParent?.UnsetObject();
         destination.SetObject(this, false);
 
         this.transform.DOJump(destination.transform.position, 1f, 1, 0.3f).SetEase(Ease.InOutQuint).OnComplete(() => onComplete?.Invoke());

@@ -189,6 +189,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 88581604030358702, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
+      propertyPath: movementController
+      value: 6408132077407436810
+      objectReference: {fileID: 0}
+    - target: {fileID: 88581604030358702, guid: 0afeaf262e767ba4db828c0779545280,
+        type: 3}
+      propertyPath: managedReferences[6408132077407436810]
+      value: Assembly-CSharp RookMovement
+      objectReference: {fileID: 0}
     - target: {fileID: 3460221295302927738, guid: 0afeaf262e767ba4db828c0779545280,
         type: 3}
       propertyPath: m_IsActive

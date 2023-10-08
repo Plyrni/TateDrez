@@ -6,7 +6,7 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
 {
     [SerializeField] eChessColor chessTeam;
     [SerializeField] Board _board;
-    [SerializeField] public List<BasePawn> _listPawns;
+    [SerializeField] public List<BasePawn> _listPawnsSpawned;
 
     public ITileContainer TileContainer => this._board;
     private void Awake()
@@ -18,7 +18,7 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
     public void Initialize()
     {
         this._board.BakeBoard();
-        this._listPawns.Clear();
+        this._listPawnsSpawned.Clear();
         this.FillWithPawns();
     }
     public BasePawn AddPawn(ePawnType pawnType)
@@ -30,11 +30,11 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
             return null;
         }
 
-        BasePawn newPawn = Instantiate(PawnInstancier.Instance.GetPrefab(pawnType), null);
+        BasePawn newPawn = Instantiate(PawnInstancier.Instance.GetPrefab(pawnType), null);        
         newPawn.transform.localScale = this._board.Grid.cellSize.x * Vector3.one;
-        newPawn.chessThemeToggler.ToggleTheme(this.chessTeam);
+        newPawn.ChessColor = this.chessTeam;
         tile.SetPawn(newPawn);
-        this._listPawns.Add(newPawn);
+        this._listPawnsSpawned.Add(newPawn);
         return newPawn;
     }
     private void FillWithPawns()
@@ -43,7 +43,18 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
         this.AddPawn(ePawnType.Rook);
         this.AddPawn(ePawnType.Bishop);
     }
-
+    public int GetNbPawnsInsideContainerBoard()
+    {
+        int nb = 0;
+        foreach (var item in _listPawnsSpawned)
+        {
+            if (item.slotParent.Container.Owner as PawnContainer != null)
+            {
+                nb++;
+            }
+        }
+        return nb;
+    }
     public void OnSpawnTile(ChessTile2D chessTile)
     {
         chessTile.SetColorTheme(this.chessTeam);
