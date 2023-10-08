@@ -15,6 +15,7 @@ public class GameState_DynamicPhase : GameState
 
         UIManager.Instance.SetMenu(eGameState.Dynamic);
         TileTouchManager.Instance.OnTileTouched.AddListener(OnTileTouched);
+        this.HandleCasePlayerBlocked();
     }
     public override void OnUpdate(float dt)
     {
@@ -44,20 +45,19 @@ public class GameState_DynamicPhase : GameState
         // Has already a tile selected
         else if (this.selectionManager.currentSelection.Count > 0)
         {
-            // Touched a populated tile
+            // Try to select a new Pawn
             if (tile.Pawn != null)
             {
-                // If not you pawn : return
                 if (tile.Pawn.ChessColor != this.gameManager.CurrentPlayerColor)
                 {
                     Debug.Log("Tile occupied");
                     return;
                 }
-                // If your pawn : Select
                 this.TrySelectPawn(tile);
                 return;
             }
 
+            // Try to move the current selected Pawn
             bool canMoveThere = this.possiblesMoves.Contains(tile.cellCoordinates);
             if (canMoveThere == true)
             {
@@ -115,6 +115,7 @@ public class GameState_DynamicPhase : GameState
 
         return true;
     }
+
     private void EndTurn()
     {
         // Check if pawn aligned
@@ -130,19 +131,22 @@ public class GameState_DynamicPhase : GameState
             this.gameManager.CurrentPlayer.isWinner = true;
             this.gameManager.StateMachine.SetState(eGameState.Win);
         }
-        else
+        else if (HandleCasePlayerBlocked() == false)
         {
-            // Check if player pawns can move
-            bool canPlayerMove = true; //TODO
-            if (canPlayerMove)
-            {
-                this.gameManager.NextPlayer();
-            }
-            else
-            {
-                // Next player should play 2 times
-            }
+            this.gameManager.NextPlayer();
         }
+    }
+
+    private bool HandleCasePlayerBlocked()
+    {
+        bool canPlayerMove = gameManager.CurrentPlayer.CanPawnsMove();
+        if (canPlayerMove == false)
+        {
+            this.gameManager.NextPlayer();
+            this.gameManager.AddBonusTurn();
+            return true;
+        };
+        return false;
     }
     private TileContainerType GetTileContainerType(ChessTile2D tile)
     {
