@@ -20,6 +20,7 @@ public class GameState_PlacementPhase : GameState
         this._canSelect = true;
 
         // Init state environment
+        CameraManager.Instance.SetCamera(eCamType.Game);
         this.gameManager.PlayerManager.InitializePlayers();
         this.gameManager.gameBoard.Initialize();
         UIManager.Instance.SetMenu(eGameState.Placement);

@@ -9,6 +9,7 @@ public class GameState_Menu : GameState
     {
         base.OnEnter();
         UIManager.Instance.SetMenu(eGameState.Menu);
+        CameraManager.Instance.SetCamera(eCamType.Home);
     }
     public override void OnUpdate(float dt)
     {

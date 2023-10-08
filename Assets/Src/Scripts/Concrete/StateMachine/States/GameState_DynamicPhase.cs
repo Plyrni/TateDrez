@@ -14,6 +14,7 @@ public class GameState_DynamicPhase : GameState
         // Init variables
         this.selectionManager = new SelectionManager();
 
+        CameraManager.Instance.SetCamera(eCamType.Game);
         UIManager.Instance.SetMenu(eGameState.Dynamic);
         TileTouchManager.Instance.OnTileTouched.AddListener(OnTileTouched);
         this.gameManager.TurnManager.OnCurrentPlayerChanged.AddListener(this.OnCurrentPlayerChange);

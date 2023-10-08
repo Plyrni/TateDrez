@@ -8,6 +8,7 @@ public class GameState_Win : GameState
     {
         base.OnEnter();
         UIManager.Instance.SetMenu(eGameState.Win);
+        CameraManager.Instance.SetCamera(eCamType.Home);
     }
     public override void OnUpdate(float dt)
     {

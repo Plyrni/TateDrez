@@ -47,8 +47,8 @@ public class PawnContainerManager : MonoBehaviour
         eChessColor colorToShow = chessColor;
         eChessColor colorToHide = colorToShow == eChessColor.Light ? eChessColor.Dark : eChessColor.Light;
 
-        this.GetContainer(colorToShow).transform.DOMove(this.activePawnSpot.position, 0.4f).SetDelay(0.3f);
-        this.GetContainer(colorToHide).transform.DOMove(this.inactivePawnSpot.position, 0.5f);
+        this.GetContainer(colorToShow).transform.DOLocalMove(this.activePawnSpot.localPosition, 0.4f).SetDelay(0.3f);
+        this.HideContainer(colorToHide);
     }
     public void HideAllContainers()
     {
@@ -59,7 +59,7 @@ public class PawnContainerManager : MonoBehaviour
     {
         PawnContainer container = GetContainer(chessColor);
         container.transform.DOKill();
-        container.transform.DOMove(this.inactivePawnSpot.position, 0.5f);
+        container.transform.DOLocalMove(this.inactivePawnSpot.localPosition, 0.5f);
     }
 
     public void EnableFeedbackIdle(bool enable)
