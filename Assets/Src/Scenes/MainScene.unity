@@ -205,6 +205,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StateMachine: {fileID: 70224925}
+  OnCurrentPlayerChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  gameBoard: {fileID: 150063304}
 --- !u!114 &70224925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +252,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 83308459}
-  - component: {fileID: 83308460}
   m_Layer: 0
   m_Name: '[TileSelectionManager]'
   m_TagString: Untagged
@@ -271,18 +274,6 @@ Transform:
   m_Father: {fileID: 965763766}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &83308460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83308458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e2f474b61695884f9d70bac05fd3b74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &111374870
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +391,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuHome: {fileID: 1676031550}
   menuGame: {fileID: 200162849}
+--- !u!1 &111528873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111528874}
+  m_Layer: 0
+  m_Name: SpotActive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &111528874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111528873}
+  m_LocalRotation: {x: 0.39795452, y: -0, z: -0, w: 0.9174052}
+  m_LocalPosition: {x: 0, y: 5.241745, z: -4.0728354}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 860188832}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &150063302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,18 +1099,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 1437097200}
   chessThemeToggler:
     themeLight: {fileID: 697466073}
     themeDark: {fileID: 1792288247}
-  pawnSlot: {fileID: 1437097200}
   visual: {fileID: 238251036}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436800
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436800
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &429530727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,6 +1586,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625168412}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &671549309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 671549310}
+  m_Layer: 0
+  m_Name: SpotInactive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &671549310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671549309}
+  m_LocalRotation: {x: 0.39795452, y: -0, z: -0, w: 0.9174051}
+  m_LocalPosition: {x: 0, y: 4.5878167, z: -4.771471}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 860188832}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &697466073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,6 +1841,9 @@ MonoBehaviour:
   _layerMaskTile:
     serializedVersion: 2
     m_Bits: 64
+  OnTileTouched:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &825398146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,18 +1890,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 443695501}
   chessThemeToggler:
     themeLight: {fileID: 1342999707}
     themeDark: {fileID: 1910108454}
-  pawnSlot: {fileID: 443695501}
   visual: {fileID: 960815929}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436801
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436801
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
+--- !u!1 &860188831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 860188832}
+  - component: {fileID: 860188833}
+  m_Layer: 0
+  m_Name: '[PawnContainerManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &860188832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860188831}
+  m_LocalRotation: {x: -0.5, y: -0, z: -0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 0.44230652, z: 7.633902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 111528874}
+  - {fileID: 671549310}
+  - {fileID: 1915678966}
+  - {fileID: 1796799211}
+  m_Father: {fileID: 963194228}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &860188833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860188831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173591403717ff3438769abd41b30f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activePawnSpot: {fileID: 111528874}
+  inactivePawnSpot: {fileID: 671549310}
+  containerLight: {fileID: 1828720857}
+  containerDark: {fileID: 1915678965}
 --- !u!1 &897651938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,18 +2000,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 1390111578}
   chessThemeToggler:
     themeLight: {fileID: 2102614979}
     themeDark: {fileID: 1746252142}
-  pawnSlot: {fileID: 1390111578}
   visual: {fileID: 1007233425}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436802
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436802
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &926096229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,7 +2171,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1796799211}
+  - {fileID: 860188832}
   m_Father: {fileID: 513601262}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
@@ -2487,18 +2595,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 290117919}
   chessThemeToggler:
     themeLight: {fileID: 479270421}
     themeDark: {fileID: 1835140326}
-  pawnSlot: {fileID: 290117919}
   visual: {fileID: 231653748}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436803
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436803
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1252123364
 GameObject:
   m_ObjectHideFlags: 0
@@ -2960,18 +3068,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 1903844742}
   chessThemeToggler:
     themeLight: {fileID: 1252123364}
     themeDark: {fileID: 1770599107}
-  pawnSlot: {fileID: 1903844742}
   visual: {fileID: 2018257054}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436804
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436804
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1578760958
 GameObject:
   m_ObjectHideFlags: 0
@@ -3018,18 +3126,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 1849962464}
   chessThemeToggler:
     themeLight: {fileID: 181326665}
     themeDark: {fileID: 255333524}
-  pawnSlot: {fileID: 1849962464}
   visual: {fileID: 292298195}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436805
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436805
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1604013327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,18 +3405,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 926096231}
   chessThemeToggler:
     themeLight: {fileID: 1488460386}
     themeDark: {fileID: 587629096}
-  pawnSlot: {fileID: 926096231}
   visual: {fileID: 1228752593}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436806
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436806
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1746252142
 GameObject:
   m_ObjectHideFlags: 0
@@ -3615,6 +3723,18 @@ MonoBehaviour:
   _boardSize: {x: 3, y: 3}
   _tilePrefab: {fileID: 1470648210, guid: fd034e5c1d2903840a5876b802645a42, type: 3}
   _grid: {fileID: 1658628320}
+--- !u!114 &1828720857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2912796336493587816, guid: 0dc3544bb83c7304b8225a380507f2eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2912796335773751172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f4b1f165ff113459e013afc1fc2d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1835140326
 GameObject:
   m_ObjectHideFlags: 0
@@ -3789,18 +3909,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 266081349}
   chessThemeToggler:
     themeLight: {fileID: 625168412}
     themeDark: {fileID: 998254967}
-  pawnSlot: {fileID: 266081349}
   visual: {fileID: 13134262}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436807
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436807
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1893359101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3974,6 +4094,98 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910108454}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1915678964
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 860188832}
+    m_Modifications:
+    - target: {fileID: 2912796336493587816, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: chessTeam
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587822, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_Name
+      value: PawnContainerDark
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5878167
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.771471
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9174051
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.39795452
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -13.099
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0dc3544bb83c7304b8225a380507f2eb, type: 3}
+--- !u!114 &1915678965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2912796336493587816, guid: 0dc3544bb83c7304b8225a380507f2eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1915678964}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f4b1f165ff113459e013afc1fc2d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1915678966 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1915678964}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1987785389 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1931055379981425750, guid: b516816393a60c648bfd31d1846bf304,
@@ -4059,18 +4271,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6712d84fc45e4439cd175000e74ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnSlot: {fileID: 1893359103}
   chessThemeToggler:
     themeLight: {fileID: 1644192681}
     themeDark: {fileID: 397450598}
-  pawnSlot: {fileID: 1893359103}
   visual: {fileID: 1604013328}
   _onTouchInteraction:
-    rid: -2
+    rid: 6408132077407436808
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6408132077407436808
+      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &2102614979
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,17 +4440,17 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 963194228}
+    m_TransformParent: {fileID: 860188832}
     m_Modifications:
     - target: {fileID: 2912796336493587822, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}
       propertyPath: m_Name
-      value: PawnContainer
+      value: PawnContainerLight
       objectReference: {fileID: 0}
     - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}
@@ -4248,22 +4460,22 @@ PrefabInstance:
     - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.46399987
+      value: 4.5878167
       objectReference: {fileID: 0}
     - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.0580001
+      value: -4.771471
       objectReference: {fileID: 0}
     - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9934734
+      value: 0.9174051
       objectReference: {fileID: 0}
     - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.1140639
+      value: 0.39795452
       objectReference: {fileID: 0}
     - target: {fileID: 2912796336493587823, guid: 0dc3544bb83c7304b8225a380507f2eb,
         type: 3}

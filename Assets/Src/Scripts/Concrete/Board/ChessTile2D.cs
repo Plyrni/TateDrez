@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable
+public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITileContainerElement
 {
+    [SerializeField] public TilePawnSlot pawnSlot;
+
     [SerializeField] ChessThemeToggler chessThemeToggler;
-    [SerializeField] public TileSlot pawnSlot;
     [SerializeField] Transform visual;
+    [SerializeReference] ITouchInteraction _onTouchInteraction;
     private BoxCollider boxCollider;
+
+    public eChessColor ChessColor => chessThemeToggler.CurrentTheme;
     public Vector2Int cellCoordinates { get; set; }
     public ITileContainer Container { get; set; }
-
-    public bool IsSelected { get; set; }
-
     public ITouchInteraction OnTouchInteraction => this._onTouchInteraction;
-
-    [SerializeReference] ITouchInteraction _onTouchInteraction;
-
-    //public ITouchInteractionController TouchController { get => this._tileController; set => this._tileController = value; }
-    //private ITouchInteractionController _tileController;
+    public bool IsSelected { get; set; }
+    public BasePawn Pawn => this.pawnSlot.slotedObject;
 
     private void Awake()
     {
         this.boxCollider = GetComponent<BoxCollider>();
+    }
+    private void Start()
+    {
+        this.pawnSlot.Container = Container;
     }
 
     public void SetVisualScale(Vector3 newScale)
@@ -46,10 +48,14 @@ public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable
     {
         this.chessThemeToggler.ToggleTheme(colorTheme);
     }
+    public void SetPawn(BasePawn pawn, bool teleport = true)
+    {
+        this.pawnSlot.SetObject(pawn, teleport);
+    }
 
     public void OnTouch()
     {
-        this._onTouchInteraction.Execute(this);        
+        this._onTouchInteraction.Execute(this);
     }
     public void EnableInterraction(bool enable)
     {

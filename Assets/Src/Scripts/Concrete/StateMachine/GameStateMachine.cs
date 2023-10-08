@@ -25,6 +25,14 @@ public class GameStateMachine : ABaseStateMachine<GameState, eGameState>
         this.SetState(eGameState.Menu);
     }
 
+    private void LateUpdate()
+    {
+        if (CurrentState != null) 
+        {
+            CurrentState.OnLateUpdate(Time.deltaTime);
+        }
+    }
+
     protected override GameState GetState(eGameState stateEnum)
     {
         switch (stateEnum)
@@ -42,15 +50,9 @@ public class GameStateMachine : ABaseStateMachine<GameState, eGameState>
         Debug.LogError("state not found in the switch");
         return null;
     }
-
     public override void SetState(GameState state)
     {
         base.SetState(state);
         this.OnGameStateChanged?.Invoke(this.CurrentStateEnum);
-    }
-
-    public void NotifyTileTouched(ChessTile2D tile) 
-    {
-        this.CurrentState.OnChessTileTouched(tile);
-    }
+    }    
 }

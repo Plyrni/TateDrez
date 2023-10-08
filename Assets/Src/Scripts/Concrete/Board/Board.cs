@@ -141,6 +141,12 @@ public class Board : MonoBehaviour, ITileContainer
         this.OnTileSpawned?.Invoke(newTile);
         return newTile;
     }
+
+
+    public bool IsInsideBoard(int row, int col)
+    {
+        return row >= 0 && row < this._listTiles.Count && col >= 0 && col < this._listTiles[0].Count;
+    }
 }
 
 

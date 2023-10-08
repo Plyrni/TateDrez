@@ -12,9 +12,8 @@ public class DefaultTouchTileInteraction : ITouchInteraction
 
     public virtual void Execute(ITouchInterractable interractable)
     {
-        ChessTile2D tile = interractable as ChessTile2D;
-
-        this.GetGameManager().StateMachine.NotifyTileTouched(tile);
+        //ChessTile2D tile = interractable as ChessTile2D;
+        //this.GetGameManager().StateMachine.NotifyTileTouched(tile);
     }
 
     private GameManager GetGameManager()

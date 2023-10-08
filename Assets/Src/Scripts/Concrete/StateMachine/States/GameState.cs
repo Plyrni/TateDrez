@@ -11,17 +11,18 @@ public class GameState : IState
         Debug.Log("ENTER " + GetType().Name);
         this.gameManager = GameManager.Instance;
     }
-    public virtual void OnUpdate(float ddeltaTime)
+    public virtual void OnUpdate(float deltaTime)
     {
 
     }
+
+    public virtual void OnLateUpdate(float deltaTime)
+    {
+
+    }
+
     public virtual void OnExit()
     {
-
-    }
-
-    public void OnChessTileTouched(ChessTile2D tile)
-    {
-        //Debug.Log(tile + " notified having been touched. Owner = " + tile.Container.Owner);
+        Debug.Log("EXIT " + GetType().Name);
     }
 }
