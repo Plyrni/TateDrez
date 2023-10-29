@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77de6eebc304f2841b2e996ac045fe8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _board: {fileID: 1822623475}
+  _board: {fileID: 1822623474}
 --- !u!1 &161478069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,7 +2581,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467992764}
-  m_LocalRotation: {x: 0.446676, y: -0.000000015394471, z: 0.000000007685676, w: 0.8946958}
+  m_LocalRotation: {x: 0.446676, y: 0.00000001539448, z: -0.000000007685679, w: 0.8946958}
   m_LocalPosition: {x: 0, y: 6.65, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4233,13 +4233,6 @@ MonoBehaviour:
     themeDark: {fileID: 848698257}
   visual: {fileID: 2076379802}
   visualValidFeedback: {fileID: 1187138110}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &791872920
 GameObject:
   m_ObjectHideFlags: 0
@@ -6051,13 +6044,6 @@ MonoBehaviour:
     themeDark: {fileID: 1043694510}
   visual: {fileID: 1897646743}
   visualValidFeedback: {fileID: 400271752}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1001 &1005620610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6253,13 +6239,6 @@ MonoBehaviour:
     themeDark: {fileID: 1292949124}
   visual: {fileID: 436978471}
   visualValidFeedback: {fileID: 491214825}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1043694510
 GameObject:
   m_ObjectHideFlags: 0
@@ -7105,13 +7084,6 @@ MonoBehaviour:
     themeDark: {fileID: 642642682}
   visual: {fileID: 944882362}
   visualValidFeedback: {fileID: 1976602175}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1243243485
 GameObject:
   m_ObjectHideFlags: 0
@@ -8262,13 +8234,6 @@ MonoBehaviour:
     themeDark: {fileID: 757848193}
   visual: {fileID: 82382276}
   visualValidFeedback: {fileID: 129639330}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1378839406
 GameObject:
   m_ObjectHideFlags: 0
@@ -9157,13 +9122,6 @@ MonoBehaviour:
     themeDark: {fileID: 897139947}
   visual: {fileID: 1988864161}
   visualValidFeedback: {fileID: 571916072}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1636959344
 GameObject:
   m_ObjectHideFlags: 0
@@ -9957,7 +9915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1822623473}
-  - component: {fileID: 1822623475}
+  - component: {fileID: 1822623474}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -9981,7 +9939,7 @@ Transform:
   m_Father: {fileID: 150063303}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1822623475
+--- !u!114 &1822623474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9990,7 +9948,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1822623472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d0183b4a8ab06d48b422861c78adb52, type: 3}
+  m_Script: {fileID: 11500000, guid: b188902f817fc874f832b6451c4761d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnTileSpawned:
@@ -10094,13 +10052,6 @@ MonoBehaviour:
     themeDark: {fileID: 745452796}
   visual: {fileID: 1012794743}
   visualValidFeedback: {fileID: 693070951}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1848708337
 GameObject:
   m_ObjectHideFlags: 0
@@ -10267,13 +10218,6 @@ MonoBehaviour:
     themeDark: {fileID: 2123097453}
   visual: {fileID: 82775067}
   visualValidFeedback: {fileID: 1885559560}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &1859556584
 GameObject:
   m_ObjectHideFlags: 0
@@ -11854,13 +11798,6 @@ MonoBehaviour:
     themeDark: {fileID: 372129246}
   visual: {fileID: 1378839407}
   visualValidFeedback: {fileID: 917703612}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!1 &2123097453
 GameObject:
   m_ObjectHideFlags: 0

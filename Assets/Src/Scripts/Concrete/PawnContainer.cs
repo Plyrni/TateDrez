@@ -5,7 +5,7 @@ using UnityEngine;
 public class PawnContainer : MonoBehaviour, ITileContainerOwner
 {
     [SerializeField] eChessColor chessTeam;
-    [SerializeField] Board _board;
+    [SerializeField] ChessBoard _board;
     [SerializeField] public List<BasePawn> listPawnsSpawned;
 
     public ITileContainer TileContainer => this._board;

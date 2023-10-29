@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public TurnManager TurnManager { get; private set; }
 
     public GameStateMachine StateMachine;
-    public GameBoard gameBoard;
+    public ChessGameBoard gameBoard;
 
     private void Awake()
     {

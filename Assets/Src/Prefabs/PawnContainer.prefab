@@ -543,13 +543,6 @@ MonoBehaviour:
     themeDark: {fileID: 1880287650743140714}
   visual: {fileID: 5732571572164323287}
   visualValidFeedback: {fileID: 4579346510645706905}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!54 &8562067878226789150
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -834,7 +827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2912796336493587823}
   - component: {fileID: 2912796336493587816}
-  - component: {fileID: 2912796336493587817}
+  - component: {fileID: 2813356983019824560}
   m_Layer: 0
   m_Name: PawnContainer
   m_TagString: Untagged
@@ -872,9 +865,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessTeam: 0
-  _board: {fileID: 2912796336493587817}
-  _listPawnsSpawned: []
---- !u!114 &2912796336493587817
+  _board: {fileID: 2813356983019824560}
+  listPawnsSpawned: []
+--- !u!114 &2813356983019824560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -883,7 +876,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2912796336493587822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d0183b4a8ab06d48b422861c78adb52, type: 3}
+  m_Script: {fileID: 11500000, guid: b188902f817fc874f832b6451c4761d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnTileSpawned:
@@ -1029,13 +1022,6 @@ MonoBehaviour:
     themeDark: {fileID: 1210956043874635191}
   visual: {fileID: 7036922901288995625}
   visualValidFeedback: {fileID: 3909275300456949508}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!54 &481728720071911253
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2023,13 +2009,6 @@ MonoBehaviour:
     themeDark: {fileID: 835154179226748606}
   visual: {fileID: 7571232608645150307}
   visualValidFeedback: {fileID: 6517592158510984212}
-  _onTouchInteraction:
-    rid: 6408132058594672645
-  references:
-    version: 2
-    RefIds:
-    - rid: 6408132058594672645
-      type: {class: DefaultTouchTileInteraction, ns: , asm: Assembly-CSharp}
 --- !u!54 &7644311308747217493
 Rigidbody:
   m_ObjectHideFlags: 0

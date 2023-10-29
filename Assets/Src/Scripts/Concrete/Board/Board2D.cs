@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class Board : MonoBehaviour, ITileContainer
+public class Board2D : MonoBehaviour, ITileContainer
 {
     public ITileContainerOwner Owner { get; set; }
     public Grid Grid { get => _grid; }
@@ -17,7 +17,7 @@ public class Board : MonoBehaviour, ITileContainer
     [SerializeField] private Vector2 _boardSize;
     [SerializeField] private ChessTile2D _tilePrefab;
     [SerializeField] private Grid _grid;
-    private List<List<ChessTile2D>> _listTiles = new List<List<ChessTile2D>>();
+    protected List<List<ITile>> _listTiles = new List<List<ITile>>();
 
     private void Awake()
     {
@@ -27,21 +27,8 @@ public class Board : MonoBehaviour, ITileContainer
         }
     }
 
-    public ChessTile2D GetEmptyTile()
-    {
-        foreach (var item in this._listTiles)
-        {
-            foreach (var tile in item)
-            {
-                if (tile.pawnSlot.IsEmpty == true)
-                {
-                    return tile;
-                }
-            }
-        }
-        return null;
-    }
-    public ChessTile2D GetTile(int x, int y)
+    
+    public ITile GetTile(int x, int y)
     {
         if (this.IsInsideBoard(x,y) == false)
         {
@@ -51,7 +38,7 @@ public class Board : MonoBehaviour, ITileContainer
 
         return this._listTiles[x][y];
     }
-    public ChessTile2D GetTile(Vector2Int coord)
+    public ITile GetTile(Vector2Int coord)
     {
         return this.GetTile(coord.x, coord.y);
     }
@@ -65,7 +52,7 @@ public class Board : MonoBehaviour, ITileContainer
         for (int x = 0; x < this._boardSize.x; x++)
         {
             // Update variables
-            this._listTiles.Add(new List<ChessTile2D>());
+            this._listTiles.Add(new List<ITile>());
             currentCell.x = x;
 
             for (int y = 0; y < this._boardSize.y; y++)
@@ -73,7 +60,7 @@ public class Board : MonoBehaviour, ITileContainer
                 // Update variables
                 currentCell.y = y;
 
-                ChessTile2D newTile = this.SpawnTile(currentCell);
+                ITile newTile = this.SpawnTile(currentCell);
 
                 // Store tile for future use
                 this._listTiles[x].Add(newTile);
@@ -130,7 +117,7 @@ public class Board : MonoBehaviour, ITileContainer
 
         this._grid.transform.localPosition = new Vector3(offsetXV0, this._grid.transform.localPosition.y, offsetZV0);
     }
-    private ChessTile2D SpawnTile(Vector3Int cellCoordinate)
+    private ITile SpawnTile(Vector3Int cellCoordinate)
     {
         Vector3 currentCell_WorldCoordinates = this._grid.CellToWorld(cellCoordinate);
         ChessTile2D newTile = Instantiate(this._tilePrefab, currentCell_WorldCoordinates, this._grid.transform.rotation, this._grid.transform);
@@ -150,26 +137,18 @@ public class Board : MonoBehaviour, ITileContainer
     {
         return x >= 0 && x < this._listTiles.Count && y >= 0 && y < this._listTiles[0].Count;
     }
-    public bool IsCellEmpty(int x,int y)
-    {
-        return this.IsCellEmpty(new Vector2Int(x, y));
-    }
-    public bool IsCellEmpty(Vector2Int cellCoordinate)
-    {
-        return this.GetTile(cellCoordinate).Pawn == null;
-    }
 }
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(Board))]
+[CustomEditor(typeof(Board2D))]
 public class Board_Editor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        Board myScript = (Board)target;
+        Board2D myScript = (Board2D)target;
         if (GUILayout.Button("BakeBoard"))
         {
             if (Application.isPlaying == false)

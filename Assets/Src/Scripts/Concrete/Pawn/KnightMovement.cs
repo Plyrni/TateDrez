@@ -31,7 +31,7 @@ public class KnightMovement : IPawnMovement
         new Vector2Int(-1, -2),
     }; 
 
-    public List<Vector2Int> ValidMoves(Vector2Int currentPosition, Board board)
+    public List<Vector2Int> ValidMoves(Vector2Int currentPosition, ChessBoard board)
     {
         List<Vector2Int> validMoves = new List<Vector2Int>();
 

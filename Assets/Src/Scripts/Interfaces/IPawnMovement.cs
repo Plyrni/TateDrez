@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPawnMovement
 {
-    List<Vector2Int> ValidMoves(Vector2Int currentPosition, Board board);
+    List<Vector2Int> ValidMoves(Vector2Int currentPosition, ChessBoard board);
 }

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class ChessTile2D : MonoBehaviour, ITouchInterractable, ISelectable, ITileContainerElement
+public class ChessTile2D : MonoBehaviour, ITile, ITouchInterractable, ISelectable, ITileContainerElement 
 {
     [SerializeField] public TilePawnSlot pawnSlot;
-    [SerializeField] ChessThemeToggler chessThemeToggler;
-    [SerializeField] Transform visual;
-    [SerializeField] Transform visualValidFeedback;
+    [SerializeField] private ChessThemeToggler chessThemeToggler;
+    [SerializeField] private Transform visual;
+    [SerializeField] private Transform visualValidFeedback;
     private BoxCollider boxCollider;
 
     public eChessColor ChessColor => chessThemeToggler.CurrentTheme;

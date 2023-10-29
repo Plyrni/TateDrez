@@ -12,7 +12,7 @@ public class BishopMovement : IPawnMovement
         new Vector2Int(-1, 1)    // Up-Left
     };
 
-    public List<Vector2Int> ValidMoves(Vector2Int currentPosition, Board board)
+    public List<Vector2Int> ValidMoves(Vector2Int currentPosition, ChessBoard board)
     {
         List<Vector2Int> validMoves = new List<Vector2Int>();
 

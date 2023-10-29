@@ -4,10 +4,10 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class GameBoard : MonoBehaviour, ITileContainerOwner
+public class ChessGameBoard : MonoBehaviour, ITileContainerOwner
 {
-    public Board Board { get => _board; }
-    [SerializeField] Board _board;
+    public ChessBoard Board { get => _board; }
+    [SerializeField] ChessBoard _board;
 
     public ITileContainer TileContainer => this._board;
     public TileContainerOwnerType Type => TileContainerOwnerType.GameBoard;
@@ -16,7 +16,7 @@ public class GameBoard : MonoBehaviour, ITileContainerOwner
     {
         if (this._board == null)
         {
-            this._board = GetComponentInChildren<Board>();
+            this._board = GetComponentInChildren<ChessBoard>();
         }
         this._board.Owner = this;
         this._board.OnTileSpawned.AddListener(this.OnSpawnTile);
@@ -33,12 +33,11 @@ public class GameBoard : MonoBehaviour, ITileContainerOwner
         float moduloTileCoord = (spawnedTile.cellCoordinates.x + spawnedTile.cellCoordinates.y) % 2;
         eChessColor tileColor = moduloTileCoord == 0 ? eChessColor.Light : eChessColor.Dark;
         spawnedTile.SetColorTheme(tileColor);
-        //spawnedTile.TouchController = this.tileController;
         spawnedTile.Container = this.TileContainer;
     }
     public bool IsAligned(int row, int col, int requiredAlignment)
     {
-        ChessTile2D currentTile = this._board.GetTile(row, col);
+        ChessTile2D currentTile = this._board.GetChessTile(row, col);
         if (currentTile.Pawn == null) { return false; }
         eChessColor slot = currentTile.Pawn.ChessColor;
         if (slot == eChessColor.NONE) return false; // Uncolorized Pawn
@@ -53,7 +52,7 @@ public class GameBoard : MonoBehaviour, ITileContainerOwner
             // Check in one direction
             int newRow = row + direction[0];
             int newCol = col + direction[1];
-            while (this._board.IsInsideBoard(newRow, newCol) && this._board.GetTile(newRow, newCol).Pawn != null && this._board.GetTile(newRow, newCol).Pawn.ChessColor == slot)
+            while (this._board.IsInsideBoard(newRow, newCol) && this._board.GetPawn(newRow, newCol)!= null && this._board.GetPawn(newRow, newCol).ChessColor == slot)
             {
                 count++;
                 newRow += direction[0];
@@ -63,7 +62,7 @@ public class GameBoard : MonoBehaviour, ITileContainerOwner
             // Check in opposite direction (only necessary for the diagonals)
             newRow = row - direction[0];
             newCol = col - direction[1];
-            while (this._board.IsInsideBoard(newRow, newCol) && this._board.GetTile(newRow, newCol).Pawn != null && this._board.GetTile(newRow, newCol).Pawn.ChessColor == slot)
+            while (this._board.IsInsideBoard(newRow, newCol) && this._board.GetPawn(newRow, newCol) != null && this._board.GetPawn(newRow, newCol).ChessColor == slot)
             {
                 count++;
                 newRow -= direction[0];
@@ -83,7 +82,7 @@ public class GameBoard : MonoBehaviour, ITileContainerOwner
     {
         foreach (var pos in tilesToHighlight)
         {
-            this._board.GetTile(pos).EnableValidFeedback(shouldHighlight);
+            this._board.GetChessTile(pos).EnableValidFeedback(shouldHighlight);
         }
 
         if (shouldHighlight == true)
