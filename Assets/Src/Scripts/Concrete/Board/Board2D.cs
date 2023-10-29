@@ -12,10 +12,10 @@ public class Board2D : MonoBehaviour, ITileContainer
     public Grid Grid { get => _grid; }
     public Vector2 BoardSize { get => this._boardSize; }
 
-    [HideInInspector] public UnityEvent<ChessTile2D> OnTileSpawned;
+    [HideInInspector] public UnityEvent<ITile> OnTileSpawned;
 
     [SerializeField] private Vector2 _boardSize;
-    [SerializeField] private ChessTile2D _tilePrefab;
+    [SerializeField] private ITile _tilePrefab;
     [SerializeField] private Grid _grid;
     protected List<List<ITile>> _listTiles = new List<List<ITile>>();
 
@@ -87,7 +87,7 @@ public class Board2D : MonoBehaviour, ITileContainer
         // We make sure to destroy every existing Tile child. Ex: At startup list is empty even if we've baked it in editor
         else
         {
-            foreach (var item in this._grid.GetComponentsInChildren<ChessTile2D>())
+            foreach (var item in this._grid.GetComponentsInChildren<ITile>())
             {
                 Destroy(item.gameObject);
             }
@@ -97,7 +97,7 @@ public class Board2D : MonoBehaviour, ITileContainer
     public void ClearBoardTiles_Editor()
     {
         /// Since "listTiles" might be empty, we make sure there is no Tile left before baking
-        foreach (var item in this._grid.GetComponentsInChildren<ChessTile2D>())
+        foreach (var item in this._grid.GetComponentsInChildren<ITile>())
         {
             DestroyImmediate(item.gameObject);
         }
@@ -120,7 +120,7 @@ public class Board2D : MonoBehaviour, ITileContainer
     private ITile SpawnTile(Vector3Int cellCoordinate)
     {
         Vector3 currentCell_WorldCoordinates = this._grid.CellToWorld(cellCoordinate);
-        ChessTile2D newTile = Instantiate(this._tilePrefab, currentCell_WorldCoordinates, this._grid.transform.rotation, this._grid.transform);
+        ITile newTile = Instantiate(this._tilePrefab.gameObject, currentCell_WorldCoordinates, this._grid.transform.rotation, this._grid.transform).GetComponent<ITile>();
         newTile.cellCoordinates = cellCoordinate.ToVec2_XY();
         newTile.SetVisualScale(this._grid.cellSize);
 

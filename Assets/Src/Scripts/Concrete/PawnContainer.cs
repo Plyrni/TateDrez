@@ -59,8 +59,9 @@ public class PawnContainer : MonoBehaviour, ITileContainerOwner
         }
         return nb;
     }
-    public void OnSpawnTile(ChessTile2D chessTile)
+    public void OnSpawnTile(ITile tile)
     {
+        ChessTile2D chessTile = (ChessTile2D)tile;
         chessTile.SetColorTheme(this.chessTeam);
         chessTile.Container = TileContainer;
     }

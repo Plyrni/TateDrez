@@ -27,8 +27,10 @@ public class ChessGameBoard : MonoBehaviour, ITileContainerOwner
         this._board.BakeBoard();
     }
 
-    private void OnSpawnTile(ChessTile2D spawnedTile)
+    private void OnSpawnTile(ITile tile)
     {
+        ChessTile2D spawnedTile = (ChessTile2D)tile;
+
         // Compute color
         float moduloTileCoord = (spawnedTile.cellCoordinates.x + spawnedTile.cellCoordinates.y) % 2;
         eChessColor tileColor = moduloTileCoord == 0 ? eChessColor.Light : eChessColor.Dark;
